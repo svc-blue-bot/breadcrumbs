@@ -1,7 +1,7 @@
-# Breadcrumbs
-Experiments in digital forensics.  
-I generate controlled attacks, capture the residual artefacts,  
-and map the breadcrumb trail from behaviour to evidence.
+---
+layout: default
+title: Breadcrumbs
+---
 
-## Latest Posts
-- [ClickFix Attack: Initial Artefacts] (/clickfix
+# Breadcrumbs
+Testing…

@@ -1,6 +1,12 @@
-# Breadcrumbs  
-A DFIR research notebook focused on the residual artefacts left behind by real attack techniques.  
-Each experiment documents ground truth, evaluates artefact reliability, and maps the forensic evidence trail.
+---
+layout: default
+title: Breadcrumbs
+---
 
-## Latest Posts
-- [ClickFix Attack: Initial Artefact Trace](/clickfix)
+<link rel="stylesheet" href="assets/css/override.css">
+
+# Breadcrumbs
+
+Experiments in digital forensics and artefact behaviour.
+
+...

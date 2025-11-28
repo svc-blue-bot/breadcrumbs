@@ -1,45 +1,63 @@
-# ClickFix-Style Attack: Artefacts Left Behind (Experiment 1)
+---
+layout: default
+title: ClickFix
+permalink: /clickfix/
+---
 
-## Goal
-Identify what Windows artefacts remain after running a “click-fix” style payload in a controlled environment.
+# ClickFix
 
-## Method
-- Windows 10 VM
-- Logging: (Event Logs, PowerShell, SRUM)
-- Action: User executes fake “update” EXE
-- Artefact collection: KAPE + manual triage
+A lab experiment analysing a fake “ClickFix” support tool: what it does, how it persists,
+and what artefacts it leaves behind.
 
-## Ground Truth Timeline
-- 14:02: File downloaded
-- 14:03: User executed EXE
-- 14:03: Dropper wrote file X
-- 14:04: Reg key added
-- 14:05: Shell launched payload
+## Scenario
 
-## Observed Artefacts
-### File System
-- MFT entry for clickfix.exe → created at 14:02
-- USN entries for new DLL → 14:03
+- Host OS:
+- Initial access:
+- Payload / tooling:
+- Goal of the exercise:
 
-### Registry
-- Run key added → HKCU\Software\Microsoft\Windows\CurrentVersion\Run
+---
 
-### Execution
-- Prefetch entry: CLICKFIX.EXE-xxxxx.pf
-- Amcache entry with SHA-1
-- SRUM process execution record
+## Timeline
 
-### Network
-- DNS cache entry  
-- 5156/5158 Firewall logs if enabled
+1. User executes installer
+2. Tool phones home
+3. Persistence is established
+4. Cleanup / uninstall attempt
 
-## Notes on Reliability
-- Prefetch confirmed  
-- Shimcache unreliable due to delayed writes  
-- SRUM has ~1–3 minutes delay  
-- Event Logs incomplete when logging is default  
+---
 
-## Next Steps
-- Test persistence-only variant  
-- Compare artefacts after reboot  
+## Artefacts
 
+### Disk
+
+- Install path:
+- Dropped files:
+- Interesting config / logs:
+
+### Registry / Persistence
+
+- Run keys / services:
+- Scheduled tasks:
+- Other autostart locations:
+
+### Logs & Telemetry
+
+- Event IDs worth watching:
+- Network traces:
+- EDR / AV alerts (if any):
+
+---
+
+## Detection & Hunting Ideas
+
+- Suggested Sigma-style log conditions
+- Example hunt queries (e.g. Splunk / KQL style)
+- Things that *won’t* be reliably detectable
+
+---
+
+## Limitations
+
+- Lab environment assumptions
+- What might look different on other OS versions / configs

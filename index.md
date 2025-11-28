@@ -3,7 +3,7 @@ layout: default
 title: Breadcrumbs
 ---
 
-# ./ Breadcrumbs
+# Breadcrumbs
 
 > Experiments in digital forensics and artefact behaviour.
 

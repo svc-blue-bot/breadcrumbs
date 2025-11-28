@@ -1,14 +1,62 @@
-/* Blue terminal accent instead of green */
-a, h1, h2, h3, h4, h5, h6 {
-  color: #4db2ff !important; /* bright cyber blue */
-}
+/* ===== Global dark terminal look ===== */
 
 body {
-  background-color: #0b0f17 !important; /* deep terminal-dark */
-  color: #c9d1d9 !important;            /* GitHub dark mode text color */
+  background-color: #050913 !important;   /* deep dark blue */
+  color: #dce9ff !important;              /* soft light blue text */
 }
 
-/* Borders / underlines */
+/* Remove the light content box */
+.wrapper,
+.page-content,
+main,
+section {
+  background-color: #050913 !important;
+  border: none !important;
+}
+
+/* Header + footer bar */
+.page-header,
+.site-footer {
+  background: #050913 !important;
+  border: none !important;
+}
+
+/* Big title area gradient */
+.page-header {
+  background: radial-gradient(circle at top left, #122749 0, #050913 55%) !important;
+}
+
+/* ===== Typography / links ===== */
+
+h1, h2, h3, h4, h5, h6 {
+  color: #4db2ff !important;             /* bright cyber blue */
+  font-weight: 700;
+}
+
+a {
+  color: #4db2ff !important;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #86c7ff !important;
+  text-decoration: underline;
+}
+
+/* Muted small text (footer, meta) */
+small, .site-footer, .site-footer a {
+  color: #7f8fb0 !important;
+}
+
+/* Horizontal rules */
 hr {
-  border-color: #3d7bff !important;
+  border-color: #1b335e !important;
+}
+
+/* Code blocks – terminal style */
+code, pre {
+  background-color: #050913 !important;
+  border: 1px solid #1b335e !important;
+  color: #dce9ff !important;
+  font-family: "Fira Code", Consolas, Menlo, monospace;
 }

@@ -1,62 +1,173 @@
-/* ===== Global dark terminal look ===== */
+/* ===== Dracula + LYT inspired layout for GitHub Pages ===== */
+/* Palette taken from your Obsidian theme: bg #22212c, code #282a36,
+   text #f8f8f2, accent #bd93f9, cyan #8be9fd, green #50fa7b, yellow #f1fa8c etc. */
 
+/* ----- Global page ----- */
 body {
-  background-color: #050913 !important;   /* deep dark blue */
-  color: #dce9ff !important;              /* soft light blue text */
+  background-color: #22212c;           /* main background */
+  color: #f8f8f2;                      /* main text */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* Remove the light content box */
+/* Kill the light content box from the Slate theme */
 .wrapper,
 .page-content,
 main,
 section {
-  background-color: #050913 !important;
+  background-color: transparent !important;
   border: none !important;
 }
 
-/* Header + footer bar */
-.page-header,
-.site-footer {
-  background: #050913 !important;
-  border: none !important;
+/* Constrain line width a bit for readability */
+.wrapper {
+  max-width: 860px !important;
 }
 
-/* Big title area gradient */
+/* ----- Header / footer ----- */
+
 .page-header {
-  background: radial-gradient(circle at top left, #122749 0, #050913 55%) !important;
+  background: radial-gradient(circle at top left, #44475a 0, #15131f 55%) !important;
+  border-bottom: 1px solid #44475a;
 }
 
-/* ===== Typography / links ===== */
+.site-footer {
+  background-color: #15131f !important;
+  border-top: 1px solid #44475a;
+  color: #6272a4;
+}
+
+.site-footer a {
+  color: #bd93f9;
+}
+
+/* ----- Headings (Dracula blog style) ----- */
 
 h1, h2, h3, h4, h5, h6 {
-  color: #4db2ff !important;             /* bright cyber blue */
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
+/* colour mapping based on your theme’s heading colours :contentReference[oaicite:1]{index=1} */
+h1 { color: #ffb86c; }   /* orange */
+h2 { color: #ff79c6; }   /* pink */
+h3 { color: #bd93f9; }   /* purple */
+h4 { color: #8be9fd; }   /* cyan */
+h5 { color: #50fa7b; }   /* green */
+h6 { color: #f1fa8c; }   /* yellow */
+
+/* Make the big site title (top banner) use purple accent */
+.page-header h1 {
+  color: #bd93f9 !important;
+}
+
+/* ----- Links ----- */
+
 a {
-  color: #4db2ff !important;
+  color: #ff80b7;                 /* internal link colour from your theme :contentReference[oaicite:2]{index=2} */
   text-decoration: none;
 }
 
 a:hover {
-  color: #86c7ff !important;
+  color: #ff79c6;
   text-decoration: underline;
 }
 
-/* Muted small text (footer, meta) */
-small, .site-footer, .site-footer a {
-  color: #7f8fb0 !important;
+/* ----- Body text / small text ----- */
+
+p, li {
+  color: #f8f8f2;
 }
 
-/* Horizontal rules */
+small {
+  color: #6e6b7e;
+}
+
+/* ----- Code & pre blocks (Dracula code style) ----- */
+
+pre, code {
+  background-color: #282a36;
+  color: #f8f8f2;
+  font-family: "Fira Code", "JetBrains Mono", Menlo, Consolas, monospace;
+  border-radius: 4px;
+}
+
+pre {
+  padding: 0.75rem 1rem;
+  border: 1px solid #44475a;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+code {
+  padding: 0.1rem 0.3rem;
+}
+
+/* Inline code – use the pink emphasis like your Obsidian theme :contentReference[oaicite:3]{index=3} */
+p > code,
+li > code {
+  background-color: #2f2f2d;
+  color: #ff5555;
+}
+
+/* ----- Blockquotes ----- */
+
+blockquote {
+  border-left: 3px solid #bd93f9;
+  padding-left: 1rem;
+  margin-left: 0;
+  color: #f8f8f2;
+  background-color: #1b1823;
+}
+
+/* ----- Horizontal rules ----- */
+
 hr {
-  border-color: #1b335e !important;
+  border: 0;
+  border-top: 1px solid #44475a;
+  margin: 2rem 0;
 }
 
-/* Code blocks – terminal style */
-code, pre {
-  background-color: #050913 !important;
-  border: 1px solid #1b335e !important;
-  color: #dce9ff !important;
-  font-family: "Fira Code", Consolas, Menlo, monospace;
+/* ----- Tables ----- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+th, td {
+  border: 1px solid #44475a;
+  padding: 0.5rem 0.75rem;
+}
+
+thead {
+  background-color: #15131f;
+  color: #f8f8f2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #23212d;
+}
+
+/* ----- Lists ----- */
+
+ul, ol {
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.25rem;
+}
+
+/* ----- Small tweaks for the “View on GitHub” button ----- */
+
+a.github-button, .btn {
+  background-color: #bd93f9 !important;
+  border-color: #bd93f9 !important;
+}
+
+a.github-button:hover, .btn:hover {
+  background-color: #ff79c6 !important;
+  border-color: #ff79c6 !important;
 }

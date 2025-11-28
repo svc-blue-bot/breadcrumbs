@@ -1,0 +1,14 @@
+/* Blue terminal accent instead of green */
+a, h1, h2, h3, h4, h5, h6 {
+  color: #4db2ff !important; /* bright cyber blue */
+}
+
+body {
+  background-color: #0b0f17 !important; /* deep terminal-dark */
+  color: #c9d1d9 !important;            /* GitHub dark mode text color */
+}
+
+/* Borders / underlines */
+hr {
+  border-color: #3d7bff !important;
+}

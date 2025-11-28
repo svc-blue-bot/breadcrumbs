@@ -4,3 +4,7 @@ plugins:
 
 title: Breadcrumbs
 description: Experiments in digital forensics and artefact behaviour.
+
+include:
+  - assets/css/override.css
+

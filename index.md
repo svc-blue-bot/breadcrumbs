@@ -19,7 +19,7 @@ I break things, then go hunting for the evidence.
 
 First experiment: a “helpful” support tool that isn’t so helpful.
 
-👉 [ClickFix – artefacts and detection](https://svc-blue-bot.github.io/breadcrumbs/clickfix/)
+👉 [ClickFix – artefacts and detection](https://svc-blue-bot.github.io/breadcrumbs/clickfix.md/)
 
 ---
 

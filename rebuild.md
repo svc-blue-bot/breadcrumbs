@@ -1,1 +1,1 @@
-triggerff
+trigger

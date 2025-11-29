@@ -154,7 +154,7 @@ LNK launching PowerShell
 PowerShell writing new PS files
 Unexpected scheduled tasks
 PowerShell to localhost
-
+```
 9. Conclusion
 This simulation accurately reproduces the artefacts and behaviours of a modern post-macro Emotet-style loader, while remaining fully safe and offline. The chain produces a wide artefact footprint across filesystem, registry, PowerShell, scheduled tasks, and user activity.
 

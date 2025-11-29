@@ -3,8 +3,6 @@ layout: default
 title: Breadcrumbs
 ---
 
-# Breadcrumbs
-
 Welcome to **Breadcrumbs.** 
 This a collection of small, reproducible DFIR experiments.  
 Each “experiment” starts from an attack or tool, then walks through the traces it leaves behind:
@@ -14,11 +12,11 @@ I break things, then go hunting for the evidence.
 
 ---
 
-## Start here: ClickFix
+## Start here: 
 
-First experiment: a “helpful” support tool that isn’t so helpful.
+First experiment: Simulated Emotet → Loader → C2
 
-👉 [ClickFix – artefacts and detection](https://svc-blue-bot.github.io/breadcrumbs/clickfix/)
+👉 [ClickFix – artefacts and detection](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2/)
 
 ---
 

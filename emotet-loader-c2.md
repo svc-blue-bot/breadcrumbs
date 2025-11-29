@@ -13,11 +13,6 @@ This report documents a **controlled, self-authored simulation** of a modern Emo
 - Understand how a contemporary loader behaves on a Windows endpoint
     
 - Observe artefacts left at each stage (delivery, execution, persistence, “C2”)
-    
-- Practice reconstructing a forensic timeline from disk and log evidence
-    
-- Produce a public DFIR-style write-up suitable for education and portfolio use
-    
 
 No real malware was used at any point.  
 All scripts, loaders, and “C2” activity were written specifically for this lab and executed only inside an isolated VM.

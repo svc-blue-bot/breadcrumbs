@@ -8,7 +8,7 @@ This a collection of small, reproducible DFIR experiments.
 Each “experiment” starts from an attack or tool, then walks through the traces it leaves behind:
 what’s on disk, in memory, in logs, and on the wire.
 
-I break things, then go hunting for the evidence.
+I.e. I break things, then go hunting for the evidence.
 
 ---
 

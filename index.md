@@ -14,9 +14,9 @@ I.e. I break things, then go hunting for the evidence.
 
 ## Start here: 
 
-First experiment: Simulated Emotet → Loader → C2
+First experiment: 
 
-👉 [ClickFix – artefacts and detection](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2/)
+👉 [Simulated Emotet → Loader → C2](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2/)
 
 ---
 

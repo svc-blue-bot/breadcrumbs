@@ -8,7 +8,7 @@ title: Simulated Emotet-Style Loader Infection (DFIR Case Study)
 
 ---
 
-## 🧪 1. Introduction
+## 1. Introduction
 
 This project documents a **fully controlled, safe, offline simulation** of a modern Emotet-style intrusion chain.  
 I created this lab environment myself for the purpose of:
@@ -34,7 +34,7 @@ Every stage produces **real forensic artefacts**, which I collected and document
 
 ---
 
-## 🛠️ 2. Tools Used
+## 2. Tools Used
 
 | Tool | Purpose |
 |------|---------|
@@ -52,7 +52,7 @@ Every stage produces **real forensic artefacts**, which I collected and document
 
 ---
 
-## 📧 3. Delivery Stage — Phishing Email
+## 3. Delivery Stage — Phishing Email
 
 The infection begins with a crafted phishing email containing a ZIP archive (`Invoice_2025.zip`) meant to resemble common Emotet delivery lures.
 
@@ -81,7 +81,7 @@ Invoice_2025
 
 ---
 
-## 🧷 4. Execution Stage — LNK Masquerading as “Invoice.pdf”
+## 4. Execution Stage — LNK Masquerading as “Invoice.pdf”
 
 The user opens **Invoice.pdf.lnk**, a shortcut disguised with a PDF icon.
 
@@ -111,7 +111,7 @@ powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "%USERPROFILE%\
 
 ---
 
-## 📜 5. Stage 1 Loader — `invoice_data.dat.ps1`
+## 5. Stage 1 Loader — `invoice_data.dat.ps1`
 
 Once executed, the disguised script:
 
@@ -140,7 +140,7 @@ Once executed, the disguised script:
 
 ---
 
-## ⚙️ 6. Stage 2 — Simulated C2 Beacon
+## 6. Stage 2 — Simulated C2 Beacon
 
 Stage 2 attempts harmless web requests to localhost:
 Invoke-WebRequest http://127.0.0.1/ping
@@ -159,7 +159,7 @@ These are logged by PowerShell.
 
 ---
 
-## 🗓️ 7. Persistence — Scheduled Task
+## 7. Persistence — Scheduled Task
 
 The loader created a Scheduled Task named **WindowsUpdateMonitor** that executes Stage 2 every 30 minutes.
 
@@ -181,32 +181,32 @@ HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\
 
 ---
 
-## 📚 8. Forensic Artefact Summary
+## 8. Forensic Artefact Summary
 
-### 🔹 File System
+### File System
 - ZIP extraction logs  
 - LNK creation & execution  
 - loader.ps1 & stage2.ps1 creation  
 - Prefetch for PowerShell & schtasks  
 
-### 🔹 Registry
+### Registry
 - TaskCache entries  
 - MUICache and UserAssist  
 - RecentApps  
 
-### 🔹 PowerShell Logs
+### PowerShell Logs
 - ScriptBlock logs  
 - Module & pipeline logs  
 - Process creation logs  
 
-### 🔹 Email Artefacts
+### Email Artefacts
 - EML metadata  
 - Attachment temp files  
 
-### 🔹 Network
+### Network
 - Localhost “C2” activity visible in SRUM  
 
-### 🔹 Timeline Reconstruction
+### Timeline Reconstruction
 Combining:
 - MFT  
 - USN journal  
@@ -217,7 +217,7 @@ Combining:
 
 ---
 
-## 🧩 9. Conclusions
+## 9. Conclusions
 
 This simulation provides a realistic, safe demonstration of a **modern post-macro Emotet-style intrusion chain**.  
 Each step leaves behind traces that defenders can detect, and analysts can reconstruct:

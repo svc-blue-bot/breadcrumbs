@@ -129,8 +129,6 @@ The remainder of this report reconstructs the infection using artefacts only.
 ## 5. Detailed Forensic Findings
     
 ### 5.1 $MFT Entries
-
-5.1 File System Artefacts – $MFT
 User opened / interacted with the email (.eml)
 Evidence: $MFT entry for invoice_2025.eml.lnk under AppData\Roaming\Microsoft\Windows\Recent.
 Interpretation: Indicates the user opened the phishing email via the Mail client.

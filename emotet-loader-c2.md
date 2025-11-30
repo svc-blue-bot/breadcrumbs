@@ -130,28 +130,28 @@ The remainder of this report reconstructs the infection using artefacts only.
     
 ### 5.1 $MFT Entries
 User opened / interacted with the email (.eml)
-Evidence: $MFT entry for invoice_2025.eml.lnk under AppData\Roaming\Microsoft\Windows\Recent.
-Interpretation: Indicates the user opened the phishing email via the Mail client.
+- Evidence: $MFT entry for invoice_2025.eml.lnk under AppData\Roaming\Microsoft\Windows\Recent.
+- Interpretation: Indicates the user opened the phishing email via the Mail client.
 
 Email client cached the ZIP attachment
-Evidence: $MFT entries under AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\Invoice_2025[...].zip.
-Interpretation: Shows the ZIP was received and cached by the Windows Mail app.
+- Evidence: $MFT entries under AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\Invoice_2025[...].zip.
+- Interpretation: Shows the ZIP was received and cached by the Windows Mail app.
 
 User downloaded Invoice_2025.zip to Downloads
-Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025.zip and its ADS Invoice_2025.zip:Zone.Identifier.
-Interpretation: Confirms the user manually saved the attachment from Mail to the Downloads folder and that Windows considered it untrusted content.
+- Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025.zip and its ADS Invoice_2025.zip:Zone.Identifier.
+- Interpretation: Confirms the user manually saved the attachment from Mail to the Downloads folder and that Windows considered it untrusted content.
 
 ZIP extracted, creating Invoice_2025 directory
-Evidence: $MFT entry for directory C:\Users\TestVM\Downloads\Invoice_2025 with Created timestamps consistent with extraction.
-Interpretation: Confirms archive extraction and creation of the working folder.
+- Evidence: $MFT entry for directory C:\Users\TestVM\Downloads\Invoice_2025 with Created timestamps consistent with extraction.
+- Interpretation: Confirms archive extraction and creation of the working folder.
 
 Extracted malicious LNK present (Invoice.pdf.lnk)
-Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk.
-Interpretation: Confirms the fake PDF shortcut was present in the extracted folder.
+- Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk.
+- Interpretation: Confirms the fake PDF shortcut was present in the extracted folder.
 
 Extracted Stage-1 loader present (invoice_data.dat.ps1)
-Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1.
-Interpretation: Confirms Stage-1 payload was extracted and available on disk.
+- Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1.
+- Interpretation: Confirms Stage-1 payload was extracted and available on disk.
 
 <img width="1675" height="673" alt="image" src="https://github.com/user-attachments/assets/de661715-4e47-4781-bcd3-5863b7c75818" />
 

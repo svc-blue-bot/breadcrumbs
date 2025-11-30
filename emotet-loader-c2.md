@@ -178,7 +178,13 @@ Extracted Stage-1 loader present (invoice_data.dat.ps1)
 Evidence: $MFT entry in Downloads\Invoice_2025\Documents\ for invoice_data.dat.ps1.
 Confirms Stage-1 payload was extracted by the user.
 
-![Alt text](MFT.png)
+<img width="1675" height="673" alt="image" src="https://github.com/user-attachments/assets/de661715-4e47-4781-bcd3-5863b7c75818" />
+
+Stage-2 C2 entry (stage2.ps1).
+Evidence: stage2.ps1 entry at .\Users\TestVM\AppData\Roaming\WinUpdate created at "2025-11-29 04:23:12".
+Confirms Stage-2 payload was successfully dropped.
+
+<img width="1504" height="134" alt="image" src="https://github.com/user-attachments/assets/724e009d-aec0-4467-adf9-72bd12cc711c" />
 
 ### 5.2 ShellBags 
 User opened the extracted folder Invoice_2025
@@ -202,7 +208,22 @@ User viewed the extracted payload path inside the ZIP (Invoice_2025.zip\Invoice_
 Shellbag entry: Desktop\Invoice_2025.zip\Invoice_2025
 Indicates the user inspected contents of the ZIP in Explorer before or during extraction.
 
-<img width="2259" height="600" alt="image" src="https://github.com/user-attachments/assets/cf88cd24-b95a-472e-b877-3bcf7db47944" />
+<img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
+
+### 5.3 UserAssist
+
+User executed malicious LNK (Invoice.pdf.lnk)
+Evidence: C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk with a Last Executed time of "2025-11-29 04:23:09".
+
+<img width="424" height="148" alt="image" src="https://github.com/user-attachments/assets/32c6c916-0d96-4d20-8515-2a9dff8c57fa" />
+
+### 5.4 Prefetch
+
+PowerShell.exe was executed after
+Evidence: \VOLUME{01dc616f835d9849-c4837a43}\WINDOWS\SYSTEM32\WINDOWSPOWERSHELL\V1.0\POWERSHELL.EXE entry with Run Time of "2025-11-29 04:23:09&12".
+
+<img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
+
 
 ---
 

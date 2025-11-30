@@ -163,45 +163,42 @@ Interpretation: Confirms Stage-1 successfully dropped the Stage-2 script into th
 
 ### 5.2 ShellBags 
 User opened the extracted folder Invoice_2025
-Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025.
-Interpretation: Shows the user browsed into the extracted directory after unzipping.
+- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025.
+- Interpretation: Shows the user browsed into the extracted directory after unzipping.
 
 User viewed the ZIP file inside Downloads
-Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025.zip.
-Interpretation: Confirms the ZIP itself was selected/viewed in Explorer.
+- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025.zip.
+- Interpretation: Confirms the ZIP itself was selected/viewed in Explorer.
 
 User opened the inner Documents subfolder
-Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
-Interpretation: Indicates the user navigated into the subfolder containing the Stage-1 script.
+- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
+- Interpretation: Indicates the user navigated into the subfolder containing the Stage-1 script.
 
 Email client attachment folder was accessed
-Evidence: Shellbag entries under
+- Evidence: Shellbag entries under
 ...\AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\.
-Interpretation: Explorer accessed the Mail app’s attachment storage, consistent with viewing the ZIP in the email client.
+- Interpretation: Explorer accessed the Mail app’s attachment storage, consistent with viewing the ZIP in the email client.
 
 User viewed the extracted payload path inside the ZIP (Invoice_2025.zip\Invoice_2025)
-Evidence: Shellbag path Desktop\Invoice_2025.zip\Invoice_2025.
-Interpretation: Indicates the user inspected the ZIP contents in Explorer before / during extraction.
+- Evidence: Shellbag path Desktop\Invoice_2025.zip\Invoice_2025.
+- Interpretation: Indicates the user inspected the ZIP contents in Explorer before / during extraction.
 
 <img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
 
 ### 5.3 UserAssist
 
 User executed malicious LNK (Invoice.pdf.lnk)
-Evidence: UserAssist entry for
-C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk
-with Last Executed ≈ 2025-11-29 04:23:09.
-Interpretation: Confirms the LNK was launched from Explorer by the logged-on user (GUI action, not scripted).
+- Evidence: UserAssist entry for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk with Last Executed ≈ 2025-11-29 04:23:09.
+- Interpretation: Confirms the LNK was launched from Explorer by the logged-on user (GUI action, not scripted).
 
 <img width="424" height="148" alt="image" src="https://github.com/user-attachments/assets/32c6c916-0d96-4d20-8515-2a9dff8c57fa" />
 
 ### 5.4 Prefetch
 
 PowerShell executed following LNK click
-Evidence: POWERSHELL.EXE-*.pf prefetch file showing:
-Last Run Time ≈ 2025-11-29 04:23:09–04:23:12.
-Low run count consistent with a fresh lab VM.
-Interpretation: Confirms powershell.exe was executed in the infection window, aligning with the execution of Invoice.pdf.lnk.
+- Evidence: POWERSHELL.EXE-*.pf prefetch file showing:
+    - Last Run Time ≈ 2025-11-29 04:23:09–04:23:12.
+- Interpretation: Confirms powershell.exe was executed in the infection window, aligning with the execution of Invoice.pdf.lnk.
 
 <img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
 

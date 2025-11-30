@@ -202,7 +202,7 @@ User viewed the extracted payload path inside the ZIP (Invoice_2025.zip\Invoice_
 Shellbag entry: Desktop\Invoice_2025.zip\Invoice_2025
 Indicates the user inspected contents of the ZIP in Explorer before or during extraction.
 
-<img width="2259" height="1000" alt="image" src="https://github.com/user-attachments/assets/cf88cd24-b95a-472e-b877-3bcf7db47944" />
+<img width="2259" height="600" alt="image" src="https://github.com/user-attachments/assets/cf88cd24-b95a-472e-b877-3bcf7db47944" />
 
 ---
 

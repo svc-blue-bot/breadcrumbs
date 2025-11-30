@@ -20,18 +20,18 @@ All scripts, loaders, and “C2” activity were written specifically for this l
 High-level flow:
 
 1. User receives a phishing email with `Invoice_2025.zip` attached.
+2. 
+3. User saves and extracts the ZIP.
     
-2. User saves and extracts the ZIP.
+4. User opens a malicious LNK (`Invoice.pdf.lnk`) masquerading as a PDF.
     
-3. User opens a malicious LNK (`Invoice.pdf.lnk`) masquerading as a PDF.
+5. LNK executes a PowerShell loader script (`invoice_data.dat.ps1`).
     
-4. LNK executes a PowerShell loader script (`invoice_data.dat.ps1`).
+6. Loader drops a second-stage script (`stage2.ps1`) into `%APPDATA%\WinUpdate`.
     
-5. Loader drops a second-stage script (`stage2.ps1`) into `%APPDATA%\WinUpdate`.
+7. Loader creates Scheduled Task persistence (`WindowsUpdateMonitor`).
     
-6. Loader creates Scheduled Task persistence (`WindowsUpdateMonitor`).
-    
-7. Stage 2 simulates C2 activity by attempting HTTP requests to `http://127.0.0.1/ping` and logging its execution.
+8. Stage 2 simulates C2 activity by attempting HTTP requests to `http://127.0.0.1/ping` and logging its execution.
     
 
 All of these stages leave observable artefacts in the filesystem, registry, event logs, PowerShell logs, SRUM, and user activity (LNK metadata, shellbags, Jump Lists, etc.).
@@ -127,81 +127,139 @@ The remainder of this report reconstructs the infection using artefacts only.
 ---
 
 ## 5. Detailed Forensic Findings
-    
-### 5.1 $MFT Entries
-User opened / interacted with the email (.eml)
-- Evidence: $MFT entry for invoice_2025.eml.lnk under AppData\Roaming\Microsoft\Windows\Recent.
-- Interpretation: Indicates the user opened the phishing email via the Mail client.
+    5. Detailed Forensic Findings (Grouped by Artefact)
+### 5.1 $MFT (Master File Table)
 
-Email client cached the ZIP attachment
-- Evidence: $MFT entries under AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\Invoice_2025[...].zip.
-- Interpretation: Shows the ZIP was received and cached by the Windows Mail app.
+#### 5.1.1 Phishing email & attachment interaction
 
-User downloaded Invoice_2025.zip to Downloads
-- Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025.zip and its ADS Invoice_2025.zip:Zone.Identifier.
-- Interpretation: Confirms the user manually saved the attachment from Mail to the Downloads folder and that Windows considered it untrusted content.
+- Evidence: $MFT entry for invoice_2025.eml.lnk under C:\Users\TestVM\AppData\Roaming\Microsoft\Windows\Recent.
+- Interpretation: Indicates the user opened the phishing email (invoice_2025.eml) via the Mail client.
 
-ZIP extracted, creating Invoice_2025 directory
-- Evidence: $MFT entry for directory C:\Users\TestVM\Downloads\Invoice_2025 with Created timestamps consistent with extraction.
-- Interpretation: Confirms archive extraction and creation of the working folder.
+#### 5.1.2 Mail app cached ZIP attachment
+- Evidence: $MFT entries under C:\Users\TestVM\AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\3\Attachments\Invoice_2025[...].zip.
+- Interpretation: Confirms Invoice_2025.zip was received and cached by the Windows Mail application.
 
-Extracted malicious LNK present (Invoice.pdf.lnk)
+#### 5.1.3 ZIP downloaded to Downloads
+- Evidence:
+    - $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025.zip.
+    - $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025.zip:Zone.Identifier (extension .Identifier).
+- Interpretation: Confirms the ZIP was manually saved to Downloads and marked as Internet-sourced content.
+
+#### 5.1.4 Extraction of Invoice_2025 directory
+- Evidence: $MFT entry for directory C:\Users\TestVM\Downloads\Invoice_2025 with Created ≈ 2025-11-29 04:22:40.
+- Interpretation: Indicates the ZIP was extracted, creating the working folder.
+
+#### 5.1.5 Malicious LNK present (Invoice.pdf.lnk)
 - Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk.
-- Interpretation: Confirms the fake PDF shortcut was present in the extracted folder.
-
-Extracted Stage-1 loader present (invoice_data.dat.ps1)
-- Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1.
-- Interpretation: Confirms Stage-1 payload was extracted and available on disk.
+- Interpretation: Confirms a fake PDF shortcut existed in the extracted folder.
 
 <img width="1675" height="673" alt="image" src="https://github.com/user-attachments/assets/de661715-4e47-4781-bcd3-5863b7c75818" />
+
+#### 5.1.6 Stage-1 loader present (invoice_data.dat.ps1)
+- Evidence: $MFT entry for C:\Users\TestVM\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1 (and ADS invoice_data.dat.ps1:Zone.Identifier if present).
+- Interpretation: Confirms the Stage-1 PowerShell loader was present in the Documents subfolder.
+
+#### 5.1.7 Stage-2 script written (stage2.ps1)
+- Evidence: $MFT entry for C:\Users\TestVM\AppData\Roaming\WinUpdate\stage2.ps1 with creation time ≈ 2025-11-29 04:23:12.
+- Interpretation: Confirms Stage-1 successfully wrote the Stage-2 beacon script to %APPDATA%\WinUpdate.
+
+<img width="1504" height="134" alt="image" src="https://github.com/user-attachments/assets/724e009d-aec0-4467-adf9-72bd12cc711c" />
+
+#### 5.1.8 Loader & Stage-2 text logs
+
+- Evidence:
+    - C:\Users\TestVM\Downloads\Invoice_2025\loader_log.txt
+    - C:\Users\TestVM\Downloads\Invoice_2025\stage2_log.txt
+- Interpretation: Presence and modification times of these files prove invoice_data.dat.ps1 and stage2.ps1 executed.
+
+[TODO]: Insert exact creation/modified times and a short excerpt from each log.
+
+#### 5.1.9 Scheduled Task file on disk – [TODO]
+- Evidence (expected): $MFT entry for C:\Windows\System32\Tasks\WindowsUpdateMonitor.
+- Interpretation: Shows the loader created a Scheduled Task for persistence.
+[TODO]: Add timestamps and description once parsed; include screenshot of task XML if desired.
+Screenshot placeholder:
+![MFTECmd output – ZIP, LNK, loader, stage2.ps1](images/mft_invoice_chain.png)
+
+### 5.2 Shellbags (Explorer Folder Navigation)
+#### 5.2.1 User browses Mail attachment path
+- Evidence: Shellbag paths like Desktop\My Computer\C:\Users\TestVM\AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\0\Attachments\Invoice_2025[4688].zip.
+- Interpretation: The user navigated into the Mail app’s internal attachments folder, consistent with viewing the attachment from Mail.
+
+<img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
+
+#### 5.2.2 User views ZIP & extraction target
+- Evidence:
+    - Desktop\My Computer\Downloads\Invoice_2025.zip
+    - Desktop\Invoice_2025.zip\Invoice_2025
+- Interpretation: Confirms the ZIP and its internal Invoice_2025 folder were browsed in Explorer prior to/while extracting.
+
+#### 5.2.3 User opens Downloads\Invoice_2025
+- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025 with last write around 04:22:41.
+- Interpretation: Shows the extracted folder was opened.
+
+#### 5.2.4 User opens inner Documents subfolder
+Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
+Interpretation: Indicates navigation into the folder containing the Stage-1 script.
+Screenshot placeholder:
+![Shellbag evidence – navigation through attachment and Downloads](images/shellbags_invoice_chain.png)
+
+### 5.3 Jump Lists – [TODO]
+Group all Jump List findings here once you finish running JLECmd.
+Evidence (expected): AutomaticDestinations entries referencing Invoice_2025.zip or C:\Users\TestVM\Downloads\Invoice_2025.
+Interpretation: Confirms recent access to the ZIP or extracted folder via Explorer.
+[TODO]: Add specific file names, timestamps, and screenshot.
+
+### 5.4 UserAssist (GUI Execution)
+#### 5.4.1 Execution of Invoice.pdf.lnk
+Evidence: UserAssist entry in NTUSER.DAT for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk, with Last Executed ≈ 2025-11-29 04:23:09.
+Interpretation: Confirms the malicious shortcut was launched via the Explorer GUI by the logged-on user.
+
+<img width="424" height="148" alt="image" src="https://github.com/user-attachments/assets/32c6c916-0d96-4d20-8515-2a9dff8c57fa" />
+
+### 5.5 Prefetch (Execution Trace – POWERSHELL.EXE)
+#### 5.5.1 powershell.exe execution
+Evidence: POWERSHELL.EXE-*.pf prefetch file (parsed with PECmd) showing:
+Last Run Time around 2025-11-29 04:23:09–04:23:12.
+Interpretation: Confirms powershell.exe ran in the same window as the LNK execution and loader activity.
+Screenshot placeholder:
+<img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
+
+### 5.6 USN Journal – [TODO]
+Use this section to summarise high-resolution file operations once you’ve parsed $UsnJrnl.
+Evidence (expected):
+USN entries for:
+Creation of Invoice_2025 directory.
+Creation of Invoice.pdf.lnk.
+Creation of invoice_data.dat.ps1.
+Creation of %APPDATA%\WinUpdate\stage2.ps1.
+Writes to loader_log.txt and stage2_log.txt.
+Creation/updates of WindowsUpdateMonitor task file.
+Interpretation:
+Provides precise ordering of Stage-1 → Stage-2 → persistence operations.
+[TODO]: Insert key rows + timeline statement and screenshot.
+
+### 5.7 Registry – Persistence & MRU Keys – [TODO]
+All registry-based artefacts grouped here.
+
+#### 5.7.1 Scheduled Task TaskCache entries
+Evidence (expected):
+HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{GUID}
+HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\WindowsUpdateMonitor
+Interpretation:
+Confirms creation of a Scheduled Task named WindowsUpdateMonitor pointing to powershell.exe and stage2.ps1.
+[TODO]: Add GUID, creation times, and screenshot.
+
+#### 5.7.2 Other relevant MRU keys (if found)
+Examples:
+HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
+HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\TypedPaths
+MUICache entries for powershell.exe
+[TODO]: Document any that add value to the narrative.
 
 Stage-2 script present (stage2.ps1)
 Evidence: $MFT entry for C:\Users\TestVM\AppData\Roaming\WinUpdate\stage2.ps1 with creation time around 2025-11-29 04:23:12.
 Interpretation: Confirms Stage-1 successfully dropped the Stage-2 script into the WinUpdate staging directory.
-
-<img width="1504" height="134" alt="image" src="https://github.com/user-attachments/assets/724e009d-aec0-4467-adf9-72bd12cc711c" />
-
-### 5.2 ShellBags 
-User opened the extracted folder Invoice_2025
-- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025.
-- Interpretation: Shows the user browsed into the extracted directory after unzipping.
-
-User viewed the ZIP file inside Downloads
-- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025.zip.
-- Interpretation: Confirms the ZIP itself was selected/viewed in Explorer.
-
-User opened the inner Documents subfolder
-- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
-- Interpretation: Indicates the user navigated into the subfolder containing the Stage-1 script.
-
-Email client attachment folder was accessed
-- Evidence: Shellbag entries under
-...\AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\.
-- Interpretation: Explorer accessed the Mail app’s attachment storage, consistent with viewing the ZIP in the email client.
-
-User viewed the extracted payload path inside the ZIP (Invoice_2025.zip\Invoice_2025)
-- Evidence: Shellbag path Desktop\Invoice_2025.zip\Invoice_2025.
-- Interpretation: Indicates the user inspected the ZIP contents in Explorer before / during extraction.
-
-<img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
-
-### 5.3 UserAssist
-
-User executed malicious LNK (Invoice.pdf.lnk)
-- Evidence: UserAssist entry for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk with Last Executed ≈ 2025-11-29 04:23:09.
-- Interpretation: Confirms the LNK was launched from Explorer by the logged-on user (GUI action, not scripted).
-
-<img width="424" height="148" alt="image" src="https://github.com/user-attachments/assets/32c6c916-0d96-4d20-8515-2a9dff8c57fa" />
-
-### 5.4 Prefetch
-
-PowerShell executed following LNK click
-- Evidence: POWERSHELL.EXE-*.pf prefetch file showing:
-    - Last Run Time ≈ 2025-11-29 04:23:09–04:23:12.
-- Interpretation: Confirms powershell.exe was executed in the infection window, aligning with the execution of Invoice.pdf.lnk.
-
-<img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
-
 
 ---
 

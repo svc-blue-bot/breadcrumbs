@@ -134,8 +134,7 @@ Evidence: $MFT entry for invoice_2025.eml.lnk under AppData\Roaming\Microsoft\Wi
 Interpretation: Indicates the user opened the phishing email via the Mail client.
 
 Email client cached the ZIP attachment
-Evidence: $MFT entries under
-AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\Invoice_2025[...].zip.
+Evidence: $MFT entries under AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\*\Attachments\Invoice_2025[...].zip.
 Interpretation: Shows the ZIP was received and cached by the Windows Mail app.
 
 User downloaded Invoice_2025.zip to Downloads

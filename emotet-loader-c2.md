@@ -1,4 +1,4 @@
-<img width="221" height="24" alt="image" src="https://github.com/user-attachments/assets/d197133a-42b1-4264-8406-1de9990e35ac" />---
+---
 layout: default
 title: Simulated Emotet-Style Loader Infection (DFIR Case Study)
 ---
@@ -148,14 +148,6 @@ PowerShell executes `invoice_data.dat.ps1`:
 ---
 
 ## 5. Detailed Forensic Findings
-
-For each phase, artefacts are grouped as:
-
-- **Evidence** – where it was found and how it was extracted
-    
-- **Explanation** – what it proves or supports
-    
-- **Screenshot** – placeholder for report images
     
 ### 5.1 $MFT Entries
 
@@ -192,49 +184,26 @@ Confirms Stage-1 payload was extracted by the user.
 User opened the extracted folder Invoice_2025
 Shellbag entry: Desktop\My Computer\Downloads\Invoice_2025
 Shows the user browsed into the extracted directory after unzipping.
-(Screenshot)
-[Shellbags_InvoiceFolder.png]
 
 User viewed the ZIP file inside Downloads
-
 Shellbag entry: Desktop\My Computer\Downloads\Invoice_2025.zip
-
 Confirms the ZIP was selected/viewed in Explorer.
-(Screenshot)
-[Shellbags_ZIP_View.png]
 
 User opened the inner Documents subfolder
-
 Shellbag entry: Desktop\My Computer\Documents\Invoice_2025\Documents
-
 Indicates the user navigated into the subfolder containing the Stage-1 script.
-(Screenshot)
-[Shellbags_Documents_Subfolder.png]
 
 Email client attachment folder was accessed
-
 Multiple Shellbag entries under:
 …\AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\$0\3\Attachments\
-
 Indicates Explorer accessed the Mail app’s attachment storage, consistent with viewing the ZIP in the email client.
-(Screenshot)
-[Shellbags_AttachmentCache.png]
 
 User viewed the extracted payload path inside the ZIP (Invoice_2025.zip\Invoice_2025)
-
 Shellbag entry: Desktop\Invoice_2025.zip\Invoice_2025
-
 Indicates the user inspected contents of the ZIP in Explorer before or during extraction.
-(Screenshot)
-[Shellbags_ZIP_Internal_View.png]
 
-System and application directories shown due to normal OS browsing
+<img width="2259" height="677" alt="image" src="https://github.com/user-attachments/assets/cf88cd24-b95a-472e-b877-3bcf7db47944" />
 
-Shellbag entries for Program Files, System32, WindowsPowerShell, etc.
-
-Non-malicious baseline activity; included automatically by Explorer navigation.
-(Screenshot)
-[Shellbags_OS_Baseline.png]
 ---
 
 

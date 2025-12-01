@@ -17,7 +17,7 @@ The simulation begins with a realistic phishing email containing a ZIP file that
 
 All of this was carried out inside an isolated virtual machine. After the simulation, the system was analyzed using industry-standard digital forensics tools to identify evidence of user actions, file creations, script execution, attempts at network communication, and persistence mechanisms.
 
-High-level flow:
+Technical flow:
 1. User receives phishing email with `Invoice_2025.zip`.  
 2. User saves ZIP to Downloads and extracts contents.  
 3. User opens a malicious LNK (`Invoice.pdf.lnk`) disguised as a PDF.  

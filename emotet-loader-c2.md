@@ -284,7 +284,7 @@ All activity remained inside the VM.
 |Path|Description|
 |---|---|
 |`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\WindowsUpdateMonitor`|Scheduled Task persistence|
-|`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{F9A0…FAKEGUID}`|Task metadata (synthetic GUID)|
+|`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{ {5F28C407-F4C8-4AD1-A8B6-71A4B108CB10}`|Task metadata|
 
 ### 6.4 Scheduled Task (Persistence)
 

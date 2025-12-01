@@ -5,8 +5,8 @@ title: breadcrumbs
 
 Welcome to **breadcrumbs.** 
 This a collection of small, reproducible DFIR practice experiments I have created.  
-Each “experiment” starts from an attack or tool, then walks through the traces it leaves behind:
-what’s on disk, in memory, in logs, and on the wire.
+
+Each “experiment” starts from an attack or tool, then walks through the traces it leaves behind.
 
 I.e. I break things, then go hunting for the evidence.
 

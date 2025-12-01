@@ -52,7 +52,7 @@ High-level flow:
 |Category|Tools|
 |---|---|
 |Disk & Filesystem|FTK Imager, Arsenal Image Mounter / OSFMount|
-|Timelines|MFTECmd (MFT)|
+|Timelines|MFTECmd (MFT), Timeline Explorer|
 |Shortcuts / LNK|LECmd|
 |Prefetch|PECmd|
 |Registry|RECmd, Registry Explorer|

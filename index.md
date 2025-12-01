@@ -16,7 +16,7 @@ I.e. I break things, then go hunting for the evidence.
 
 First experiment: 
 
--> 01/12/2025 [Simulated Emotet → Loader → C2](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2)
+-> 01/12/2025 [Simulated Emotet > Loader > C2](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2)
 
 
 ---

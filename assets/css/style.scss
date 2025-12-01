@@ -3,29 +3,40 @@
 
 @import "jekyll-theme-hacker";
 
-/* container: scales but doesn't become insanely wide */
+/* Scalable but readable container */
 .container {
-  max-width: 960px;   /* tweak: 800–1100px is common */
+  max-width: 960px;
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
 }
 
-/* images scale with container */
+/* Images scale */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* let code/text wrap instead of forcing page horizontal scroll */
-pre,
-code {
-  white-space: pre-wrap;
+/* Force wrapping for any long inline content */
+p, li, span, div {
   word-wrap: break-word;
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
-/* if something is still too wide, scroll just the code block, not the whole page */
+/* Fix code blocks causing page overflow */
+pre, code {
+  white-space: pre-wrap !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 pre {
+  overflow-x: auto;
+}
+
+/* Fix tables being wider than the container */
+table {
+  width: 100%;
+  display: block;
   overflow-x: auto;
 }

@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Simulated Emotet-Style Loader Infection (DFIR Case Study)
+title: Simulated Emotet-Style Loader Infection
 ---
 
-# Simulated Emotet-Style Loader Infection (DFIR Case Study)
+# Simulated Emotet-Style Loader Infection
 
 ---
 ## 1. Executive Summary (Non-technical)

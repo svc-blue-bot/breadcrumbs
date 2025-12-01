@@ -127,7 +127,7 @@ The remainder of this report reconstructs the infection using artefacts only.
 ---
 
 ## 5. Detailed Forensic Findings
-    5. Detailed Forensic Findings (Grouped by Artefact)
+
 ### 5.1 $MFT (Master File Table)
 
 #### 5.1.1 Phishing email & attachment interaction
@@ -172,21 +172,21 @@ The remainder of this report reconstructs the infection using artefacts only.
     - C:\Users\TestVM\Downloads\Invoice_2025\stage2_log.txt
 - Interpretation: Presence and modification times of these files prove invoice_data.dat.ps1 and stage2.ps1 executed.
 
-[TODO]: Insert exact creation/modified times and a short excerpt from each log.
+<img width="758" height="175" alt="image" src="https://github.com/user-attachments/assets/e99de59f-b0a9-4d01-aba5-3dfc133176aa" />
 
-#### 5.1.9 Scheduled Task file on disk – [TODO]
-- Evidence (expected): $MFT entry for C:\Windows\System32\Tasks\WindowsUpdateMonitor.
+<img width="832" height="205" alt="image" src="https://github.com/user-attachments/assets/64cb5656-a0b4-4417-9b4e-023340508104" />
+
+
+#### 5.1.9 Scheduled Task file on disk
+- Evidence: $MFT entry for C:\Windows\System32\Tasks\WindowsUpdateMonitor.
 - Interpretation: Shows the loader created a Scheduled Task for persistence.
-[TODO]: Add timestamps and description once parsed; include screenshot of task XML if desired.
-Screenshot placeholder:
-![MFTECmd output – ZIP, LNK, loader, stage2.ps1](images/mft_invoice_chain.png)
+
+<img width="1661" height="109" alt="image" src="https://github.com/user-attachments/assets/7e801fcd-885f-451e-988f-595aecfe7394" />
 
 ### 5.2 Shellbags (Explorer Folder Navigation)
 #### 5.2.1 User browses Mail attachment path
 - Evidence: Shellbag paths like Desktop\My Computer\C:\Users\TestVM\AppData\Local\Packages\microsoft.windowscommunicationsapps_...\LocalState\Files\S0\0\Attachments\Invoice_2025[4688].zip.
 - Interpretation: The user navigated into the Mail app’s internal attachments folder, consistent with viewing the attachment from Mail.
-
-<img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
 
 #### 5.2.2 User views ZIP & extraction target
 - Evidence:
@@ -199,72 +199,78 @@ Screenshot placeholder:
 - Interpretation: Shows the extracted folder was opened.
 
 #### 5.2.4 User opens inner Documents subfolder
-Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
-Interpretation: Indicates navigation into the folder containing the Stage-1 script.
-Screenshot placeholder:
-![Shellbag evidence – navigation through attachment and Downloads](images/shellbags_invoice_chain.png)
+- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
+- Interpretation: Indicates navigation into the folder containing the Stage-1 script.
 
-### 5.3 Jump Lists – [TODO]
-Group all Jump List findings here once you finish running JLECmd.
-Evidence (expected): AutomaticDestinations entries referencing Invoice_2025.zip or C:\Users\TestVM\Downloads\Invoice_2025.
-Interpretation: Confirms recent access to the ZIP or extracted folder via Explorer.
-[TODO]: Add specific file names, timestamps, and screenshot.
+<img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
 
-### 5.4 UserAssist (GUI Execution)
-#### 5.4.1 Execution of Invoice.pdf.lnk
-Evidence: UserAssist entry in NTUSER.DAT for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk, with Last Executed ≈ 2025-11-29 04:23:09.
-Interpretation: Confirms the malicious shortcut was launched via the Explorer GUI by the logged-on user.
+
+### 5.3 UserAssist (GUI Execution)
+#### 5.3.1 Execution of Invoice.pdf.lnk
+- Evidence: UserAssist entry in NTUSER.DAT for C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk, with Last Executed ≈ 2025-11-29 04:23:09.
+- Interpretation: Confirms the malicious shortcut was launched via the Explorer GUI by the logged-on user.
 
 <img width="424" height="148" alt="image" src="https://github.com/user-attachments/assets/32c6c916-0d96-4d20-8515-2a9dff8c57fa" />
 
-### 5.5 Prefetch (Execution Trace – POWERSHELL.EXE)
-#### 5.5.1 powershell.exe execution
-Evidence: POWERSHELL.EXE-*.pf prefetch file (parsed with PECmd) showing:
+### 5.4 Prefetch
+#### 5.4.1 powershell.exe execution
+- Evidence: POWERSHELL.EXE-*.pf prefetch file (parsed with PECmd) showing:
 Last Run Time around 2025-11-29 04:23:09–04:23:12.
-Interpretation: Confirms powershell.exe ran in the same window as the LNK execution and loader activity.
+- Interpretation: Confirms powershell.exe ran in the same window as the LNK execution and loader activity.
 Screenshot placeholder:
 <img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
 
-### 5.6 USN Journal – [TODO]
+### 5.5 USN Journal – [TODO]
 Use this section to summarise high-resolution file operations once you’ve parsed $UsnJrnl.
 Evidence (expected):
-USN entries for:
-Creation of Invoice_2025 directory.
-Creation of Invoice.pdf.lnk.
-Creation of invoice_data.dat.ps1.
-Creation of %APPDATA%\WinUpdate\stage2.ps1.
-Writes to loader_log.txt and stage2_log.txt.
-Creation/updates of WindowsUpdateMonitor task file.
-Interpretation:
-Provides precise ordering of Stage-1 → Stage-2 → persistence operations.
-[TODO]: Insert key rows + timeline statement and screenshot.
+- USN entries for:
+    - Creation of Invoice_2025 directory.
+    - Creation of Invoice.pdf.lnk.
+    - Creation of invoice_data.dat.ps1.
+    - Creation of %APPDATA%\WinUpdate\stage2.ps1.
+    - Writes to loader_log.txt and stage2_log.txt.
+    - Creation/updates of WindowsUpdateMonitor task file.
+- Interpretation: Provides precise ordering of Stage-1 -> Stage-2 -> persistence operations.
 
-### 5.7 Registry – Persistence & MRU Keys – [TODO]
-All registry-based artefacts grouped here.
+<img width="1677" height="606" alt="image" src="https://github.com/user-attachments/assets/ccd705b5-609c-41c1-91dd-68e14bd2a083" />
 
-#### 5.7.1 Scheduled Task TaskCache entries
-Evidence (expected):
-HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{GUID}
-HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\WindowsUpdateMonitor
-Interpretation:
+<img width="1062" height="631" alt="image" src="https://github.com/user-attachments/assets/27f96f42-4193-42a4-a755-3c8fc02f0347" />
+
+<img width="1065" height="630" alt="image" src="https://github.com/user-attachments/assets/35b50b5b-c37f-4d3d-b5c2-bdf8bac800c9" />
+
+<img width="1066" height="328" alt="image" src="https://github.com/user-attachments/assets/013ae0e1-0149-4f15-9749-35e521ab20c8" />
+
+<img width="1064" height="166" alt="image" src="https://github.com/user-attachments/assets/7bad9808-4020-47dd-8624-bc1aadaa030f" />
+
+<img width="1063" height="233" alt="image" src="https://github.com/user-attachments/assets/a29c80d8-29fc-48a4-9142-848355acd975" />
+
+
+### 5.6 Registry – Persistence & MRU Keys
+
+#### 5.6.1 Scheduled Task TaskCache entries
+Evidence:
+- HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\WindowsUpdateMonitor
+- Interpretation:
 Confirms creation of a Scheduled Task named WindowsUpdateMonitor pointing to powershell.exe and stage2.ps1.
-[TODO]: Add GUID, creation times, and screenshot.
 
-#### 5.7.2 Other relevant MRU keys (if found)
-Examples:
-HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs
-HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\TypedPaths
-MUICache entries for powershell.exe
-[TODO]: Document any that add value to the narrative.
-
-Stage-2 script present (stage2.ps1)
-Evidence: $MFT entry for C:\Users\TestVM\AppData\Roaming\WinUpdate\stage2.ps1 with creation time around 2025-11-29 04:23:12.
-Interpretation: Confirms Stage-1 successfully dropped the Stage-2 script into the WinUpdate staging directory.
+<img width="695" height="182" alt="image" src="https://github.com/user-attachments/assets/8f8c5cb8-aa66-4416-a4bc-4a1c11e63d5c" />
+<img width="1336" height="320" alt="image" src="https://github.com/user-attachments/assets/750cab3e-83ac-479f-96e9-3a148d48c4e9" />
 
 ---
 
+## 6. TTPs
 
-## 7. Conclusion
+---
+
+## 7. MITRE ATT&CK
+
+---
+
+## 8. Components Used
+
+---
+
+## 8. Conclusion
 
 This controlled simulation demonstrates how a relatively simple PowerShell-based loader chain can leave a **rich, multi-surface forensic footprint** across:
 
@@ -277,7 +283,5 @@ This controlled simulation demonstrates how a relatively simple PowerShell-based
 - Application telemetry (Prefetch, SRUM)
     
 - User artefacts (LNK, shellbags, Jump Lists)
-    
-    
-
-The same methodology can be applied to real-world loader intrusions, with this lab serving as a safe training and demonstration baseline.
+        
+---

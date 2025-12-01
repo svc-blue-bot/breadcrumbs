@@ -268,7 +268,7 @@ All activity remained inside the VM.
 |`invoice_data.dat.ps1`|`9cd0b447f0b4ccbe21d47288b4b40798c31de8815919e0fd23f67c0d1aa3aa33`|
 |`stage2.ps1`|`7f99a88b2322cc1ef993d567984a700b6a4c8eac341c01d7f2b4a11bcab05f44`|
 
-### 6.3 Registry Keys**
+### 6.3 Registry Keys
 
 |Path|Description|
 |---|---|

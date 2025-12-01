@@ -210,7 +210,6 @@ Screenshot placeholder:
 <img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
 
 ### 5.5 USN Journal
-Use this section to summarise high-resolution file operations once you’ve parsed $UsnJrnl.
 Evidence:
 - USN entries for:
     - Creation of Invoice_2025 directory.

@@ -1,0 +1,18 @@
+---
+---
+
+@import "jekyll-theme-hacker";
+
+/* make the container scalable */
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+}
+
+/* make images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}

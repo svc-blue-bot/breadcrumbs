@@ -7,7 +7,7 @@ title: Simulated Emotet-Style Loader Infection (DFIR Case Study)
 
 ---
 ## 1. Executive Summary (Non-technical)
-This project demonstrates how a modern email-based cyberattack can unfold on a Windows computer and how digital forensic techniques are used to reconstruct what happened.
+This project demonstrates how a modern email-based cyberattack can unfold on a Windows computer and how digital forensic techniques are used to reconstruct what happened without relying on Event Logs.
 
 The simulation begins with a realistic phishing email containing a ZIP file that appears to hold an invoice. When the file is opened, it secretly launches a hidden script instead of a real document. This script performs several actions often seen in real cyberattacks:
 - It installs itself in a location that looks legitimate

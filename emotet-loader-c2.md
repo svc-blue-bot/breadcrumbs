@@ -87,9 +87,6 @@ This lab simulates a **post-macro Emotet-style loader campaign**:
         
 5. **Stage 2:** Simulated beacon to `http://127.0.0.1/ping`, logging outcome.
     
-
-The remainder of this report reconstructs the infection using artefacts only.
-
 ---
 
 ## 4. Timeline of Events (UTC)
@@ -260,9 +257,9 @@ All activity remained inside the VM.
 
 ---
 
-## **Indicators of Compromise (IOCs)**
+## 6. Indicators of Compromise (IOCs)
 
-### **Files & Paths**
+### 6.1 Files & Paths
 
 |Type|Path / Name|Notes|
 |---|---|---|
@@ -275,9 +272,7 @@ All activity remained inside the VM.
 |Stage-2 Log|`C:\Users\TestVM\Downloads\Invoice_2025\stage2_log.txt`|C2 simulation trace|
 |Scheduled Task|`C:\Windows\System32\Tasks\WindowsUpdateMonitor`|Persistence|
 
----
-
-### **File Hashes**
+### 6.2 File Hashes
 
 |File|SHA256|
 |---|---|
@@ -286,20 +281,20 @@ All activity remained inside the VM.
 |`invoice_data.dat.ps1`|`9cd0b447f0b4ccbe21d47288b4b40798c31de8815919e0fd23f67c0d1aa3aa33`|
 |`stage2.ps1`|`7f99a88b2322cc1ef993d567984a700b6a4c8eac341c01d7f2b4a11bcab05f44`|
 
-### **Registry Keys**
+### 6.3 Registry Keys**
 
 |Path|Description|
 |---|---|
 |`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\WindowsUpdateMonitor`|Scheduled Task persistence|
 |`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{F9A0…FAKEGUID}`|Task metadata (synthetic GUID)|
 
-### **Scheduled Task (Persistence)**
+### 6.4 Scheduled Task (Persistence)
 
 |Name|Command|
 |---|---|
 |`WindowsUpdateMonitor`|`powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "%APPDATA%\WinUpdate\stage2.ps1"`|
 
-### **Network Indicators (Simulated)**
+### 6.5 Network Indicators (Simulated)
 
 |Type|Value|Notes|
 |---|---|---|
@@ -307,7 +302,7 @@ All activity remained inside the VM.
 |Protocol|HTTP||
 |Port|80||
 
-### **Command-Line Indicators**
+### 6.7 Command-Line Indicators
 
 |Component|Command|
 |---|---|
@@ -318,18 +313,18 @@ All activity remained inside the VM.
 
 ## 7. TTPs
 
-### **Initial Access**
+### 7.1 Initial Access
 - Delivery of a phishing email containing a ZIP file attachment (`Invoice_2025.zip`).
 - User interaction required to open the email and save the attachment locally.
 
-### **Execution**
+### 7.2 Execution
 - User double-clicks a disguised Windows shortcut (`Invoice.pdf.lnk`) masquerading as a PDF.
 - The LNK file executes a hidden PowerShell instance configured with:
     - `-WindowStyle Hidden`
     - `-ExecutionPolicy Bypass`  
     - `-File invoice_data.dat.ps1`
         
-### **Stage 1 Loader Activity**
+### 7.3 Stage 1 Loader Activity
 - Logging activity (`loader_log.txt`) to track script activation.
 - Creation of a masquerading working directory:
     `%APPDATA%\WinUpdate`
@@ -338,7 +333,7 @@ All activity remained inside the VM.
     `WindowsUpdateMonitor`
 - Immediate execution of Stage 2.
     
-### **Stage 2 Behaviour**
+### 7.4 Stage 2 Behaviour
 - Logging secondary script activation (`stage2_log.txt`).
 - Attempted outbound HTTP communication to:
     `http://127.0.0.1/ping`
@@ -346,25 +341,25 @@ All activity remained inside the VM.
 - Graceful error-handling and simulated C2 failure logging.
 - Delay introduced (`Start-Sleep`) to mimic beacon timing.
     
-### **Persistence**
+### 7.5 Persistence
 - Scheduled Task configured to execute Stage-2 periodically under the Windows Update naming convention, typical of real-world loader families.   
 
-### **Defensive Evasion**
+### 7.6 Defensive Evasion
 - Use of LNK masquerading as a PDF to circumvent user suspicion.
 - Execution of PowerShell with:
     - Hidden window   
     - ExecutionPolicy bypass
 - Naming conventions (“WinUpdate”, “WindowsUpdateMonitor”) chosen to blend with legitimate OS components.
     
-### **Collection / Discovery (Minimal)**
-- No discovery commands used in this simulation, but Stage-2 scaffolding allows for expanding future behavioural stages (e.g., enumeration, persistence validation).
+### 7.7 Collection / Discovery (Minimal)
+- No discovery commands used in this simulation, but Stage-2 scaffolding allows for expanding future behavioural stages such as enumeration or persistence validation.
     
-### **Command-and-Control**
+### 7.8 Command-and-Control
 - HTTP beacon attempt using `Invoke-WebRequest`.
 - Loopback target (`127.0.0.1`) substitutes for a real malicious server.
 - Logging used to confirm simulated C2 attempts.
     
-### **Impact**
+### 7.9 Impact
 - No destructive or system-modifying behaviour outside persistence and file creation.
 - Simulated dropper chain designed purely for study and forensic reconstruction.
 
@@ -372,33 +367,33 @@ All activity remained inside the VM.
 
 ## 8. MITRE ATT&CK
 
-### **Initial Access**
+### 8.1 Initial Access
 
 | MITRE ID      | Technique            | Evidence                                                    |
 | ------------- | -------------------- | ----------------------------------------------------------- |
 | **T1566.001** | Phishing: Attachment | User accessed malicious ZIP attachment (`$MFT`, Shellbags). |
 
-### **Execution**
+### 8.2 Execution
 
 |MITRE ID|Technique|Evidence|
 |---|---|---|
 |**T1204.002**|User Execution: Malicious File|UserAssist confirmed execution of `Invoice.pdf.lnk`.|
 |**T1059.001**|PowerShell|Prefetch + LNK metadata confirmed PowerShell execution.|
 
-### **Persistence**
+### 8.3 Persistence
 
 |MITRE ID|Technique|Evidence|
 |---|---|---|
 |**T1053.005**|Scheduled Task|`WindowsUpdateMonitor` task file + TaskCache registry keys.|
 
-### **Defense Evasion**
+### 8.4 Defense Evasion
 
 |MITRE ID|Technique|Evidence|
 |---|---|---|
 |**T1036.005**|Masquerading: Match Legitimate Name/Location|`%APPDATA%\WinUpdate`, fake PDF LNK.|
 |**T1059.001**|ExecutionPolicy Bypass|LNK metadata shows `-ExecutionPolicy Bypass`.|
 
-### **Command and Control**
+### 8.5 Command and Control
 
 |MITRE ID|Technique|Evidence|
 |---|---|---|

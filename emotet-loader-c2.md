@@ -93,7 +93,6 @@ The remainder of this report reconstructs the infection using artefacts only.
 ---
 
 ## 4. Timeline of Events
-4. Timeline of Events
 
 **04:10:12** – The victim receives an email containing an attachment named `Invoice_2025.zip`.
 

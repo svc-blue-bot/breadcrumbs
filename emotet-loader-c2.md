@@ -122,7 +122,7 @@ All USN Journal entries confirm these operations occurred between **04:23:00–0
 
 ---
 
-## 5. Detailed Forensic Findings
+## 5. Forensic Findings
 
 ### 5.1 $MFT (Master File Table)
 

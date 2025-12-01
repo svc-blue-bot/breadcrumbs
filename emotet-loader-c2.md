@@ -300,7 +300,7 @@ All activity remained inside the VM.
 |Protocol|HTTP||
 |Port|80||
 
-### 6.7 Command-Line Indicators
+### 6.6 Command-Line Indicators
 
 |Component|Command|
 |---|---|

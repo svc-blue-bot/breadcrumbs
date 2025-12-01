@@ -409,9 +409,8 @@ if (!(Test-Path $work)) { New-Item -ItemType Directory -Path $work | Out-Null }
 
 $stage2 = "$work\stage2.ps1"
 @'
-# ==============================
-# Stage 2 Beacon Simulator (Safe)
-# ==============================
+
+# Stage 2 Beacon Simulator 
 
 $log = "$env:USERPROFILE\Downloads\Invoice_2025\stage2_log.txt"
 Add-Content $log ("[{0}] Stage 2 activated" -f (Get-Date))

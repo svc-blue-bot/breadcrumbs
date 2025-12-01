@@ -18,20 +18,13 @@ No real malware was used at any point.
 All scripts, loaders, and “C2” activity were written specifically for this lab and executed only inside an isolated VM.
 
 High-level flow:
-
-1. User receives a phishing email with `Invoice_2025.zip` attached.
-2. 
-3. User saves and extracts the ZIP.
-    
-4. User opens a malicious LNK (`Invoice.pdf.lnk`) masquerading as a PDF.
-    
-5. LNK executes a PowerShell loader script (`invoice_data.dat.ps1`).
-    
-6. Loader drops a second-stage script (`stage2.ps1`) into `%APPDATA%\WinUpdate`.
-    
-7. Loader creates Scheduled Task persistence (`WindowsUpdateMonitor`).
-    
-8. Stage 2 simulates C2 activity by attempting HTTP requests to `http://127.0.0.1/ping` and logging its execution.
+1. User receives phishing email with `Invoice_2025.zip`.  
+2. User saves ZIP to Downloads and extracts contents.  
+3. User opens a malicious LNK (`Invoice.pdf.lnk`) disguised as a PDF.  
+4. LNK runs a PowerShell loader (`invoice_data.dat.ps1`).  
+5. Loader drops Stage 2 (`stage2.ps1`) into `%APPDATA%\WinUpdate`.  
+6. Loader creates Scheduled Task persistence (`WindowsUpdateMonitor`).  
+7. Stage 2 attempts a simulated C2 callback to `http://127.0.0.1/ping` and logs the result.
     
 
 All of these stages leave observable artefacts in the filesystem, registry, event logs, PowerShell logs, SRUM, and user activity (LNK metadata, shellbags, Jump Lists, etc.).
@@ -44,9 +37,9 @@ All of these stages leave observable artefacts in the filesystem, registry, even
 
 - **Host:** Windows machine running VMware
     
-- **Guest VM:** Windows 10/11 (lab system)
+- **Guest VM:** Windows 10 (lab system)
     
-- **Hypervisor:** VMware Workstation / Player
+- **Hypervisor:** VMware Workstation
     
 - **Execution:**
     
@@ -62,7 +55,7 @@ All of these stages leave observable artefacts in the filesystem, registry, even
 |Category|Tools|
 |---|---|
 |Disk & Filesystem|FTK Imager, Arsenal Image Mounter / OSFMount|
-|Timelines|MFTECmd (MFT), UsnJrnl2Csv (USN Journal)|
+|Timelines|MFTECmd (MFT)|
 |Shortcuts / LNK|LECmd|
 |Prefetch|PECmd|
 |Registry|RECmd, Registry Explorer, RegRipper|
@@ -105,24 +98,31 @@ The remainder of this report reconstructs the infection using artefacts only.
 
 ## 4. Timeline of Events
 4. Timeline of Events
+**04:10:12** – The victim receives an email containing an attachment named `Invoice_2025.zip`.
 
-2025-11-29 04:10:12 – Phishing email containing Invoice_2025.zip is received in the Windows Mail client.
+**04:15:51** – The victim interacts with the email and opens the attachment in the Mail application.
 
-2025-11-29 04:15:51 – Windows Mail caches a copy of Invoice_2025.zip in its internal attachments directory, indicating the user opened or interacted with the attachment in the Mail app.
+**04:17:03** – The victim views the attachment’s contents and prepares to save it.
 
-2025-11-29 04:17:03 – A invoice-2025.lnk entry appears under AppData\Roaming\Microsoft\Windows\Recent, showing the user accessed the Invoice_2025 attachment via the shell.
+**04:22:22** – The victim saves `Invoice_2025.zip` to the Downloads folder.  
+Windows marks the file as originating from the Internet.
 
-2025-11-29 04:22:22 – Invoice_2025.zip and its :Zone.Identifier ADS are created in C:\Users\TestVM\Downloads, confirming the user saved the ZIP from the Mail client and that Windows marked it as originating from an untrusted zone.
+**04:22:40** – The victim extracts the ZIP, creating the folder `Invoice_2025`.
 
-2025-11-29 04:22:40 – The C:\Users\TestVM\Downloads\Invoice_2025 directory is created, indicating the ZIP was extracted and the embedded files (Invoice.pdf.lnk, Documents\invoice_data.dat.ps1) became accessible.
+**04:22:41** – The victim browses into the newly extracted folder in Explorer.
 
-2025-11-29 04:22:41 – Shellbags record the user browsing into Downloads\Invoice_2025, confirming the folder was opened in Explorer.
+**04:23:09** – The victim opens the file `Invoice.pdf.lnk`, believing it to be a legitimate PDF.  
+This launches PowerShell in the background.
 
-2025-11-29 04:23:09 – UserAssist and Prefetch show the user executed Invoice.pdf.lnk, which launched powershell.exe with invoice_data.dat.ps1 as the script.
+**04:23:12** –  
+- The PowerShell loader executes.  
+- A “WinUpdate” directory is created beneath the user profile.  
+- A Stage-2 script (`stage2.ps1`) is dropped.  
+- The Stage-2 script executes immediately.  
+- A Scheduled Task is installed to ensure Stage-2 runs periodically.  
+- Stage-2 attempts a C2 callback and logs its output.
 
-2025-11-29 04:23:12 – $MFT shows stage2.ps1 created under %APPDATA%\WinUpdate, and Stage 2 logging begins in stage2_log.txt, confirming second-stage execution.
-
-(Further timestamps from the USN Journal, Scheduled Task artefacts, and logs to be added)
+All USN Journal entries confirm these operations occurred between **04:23:00–04:23:16**.
 
 ---
 
@@ -220,9 +220,9 @@ Last Run Time around 2025-11-29 04:23:09–04:23:12.
 Screenshot placeholder:
 <img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
 
-### 5.5 USN Journal – [TODO]
+### 5.5 USN Journal
 Use this section to summarise high-resolution file operations once you’ve parsed $UsnJrnl.
-Evidence (expected):
+Evidence:
 - USN entries for:
     - Creation of Invoice_2025 directory.
     - Creation of Invoice.pdf.lnk.
@@ -256,18 +256,157 @@ Confirms creation of a Scheduled Task named WindowsUpdateMonitor pointing to pow
 <img width="695" height="182" alt="image" src="https://github.com/user-attachments/assets/8f8c5cb8-aa66-4416-a4bc-4a1c11e63d5c" />
 <img width="1336" height="320" alt="image" src="https://github.com/user-attachments/assets/750cab3e-83ac-479f-96e9-3a148d48c4e9" />
 
+### 5.7 Netwrok Artefacts
+
+Stage-2 used loopback `127.0.0.1`, so:
+- No host firewall logs  
+- No host EDR network telemetry  
+- No host packet captures  
+- No host DNS events  
+
+All activity remained inside the VM.
+
 ---
 
 ## 6. TTPs
+
+### **Initial Access**
+- Delivery of a phishing email containing a ZIP file attachment (`Invoice_2025.zip`).
+- User interaction required to open the email and save the attachment locally.
+
+### **Execution**
+- User double-clicks a disguised Windows shortcut (`Invoice.pdf.lnk`) masquerading as a PDF.
+- The LNK file executes a hidden PowerShell instance configured with:
+    - `-WindowStyle Hidden`
+    - `-ExecutionPolicy Bypass`  
+    - `-File invoice_data.dat.ps1`
+        
+### **Stage 1 Loader Activity**
+- Logging activity (`loader_log.txt`) to track script activation.
+- Creation of a masquerading working directory:
+    `%APPDATA%\WinUpdate`
+- Dropping a secondary PowerShell script (`stage2.ps1`) into the staging folder.
+- Creation of persistence using `schtasks.exe`, disguised as:
+    `WindowsUpdateMonitor`
+- Immediate execution of Stage 2.
+    
+### **Stage 2 Behaviour**
+- Logging secondary script activation (`stage2_log.txt`).
+- Attempted outbound HTTP communication to:
+    `http://127.0.0.1/ping`
+    (loopback-only malware beacon simulation).
+- Graceful error-handling and simulated C2 failure logging.
+- Delay introduced (`Start-Sleep`) to mimic beacon timing.
+    
+### **Persistence**
+- Scheduled Task configured to execute Stage-2 periodically under the Windows Update naming convention, typical of real-world loader families.   
+
+### **Defensive Evasion**
+- Use of LNK masquerading as a PDF to circumvent user suspicion.
+- Execution of PowerShell with:
+    - Hidden window   
+    - ExecutionPolicy bypass
+- Naming conventions (“WinUpdate”, “WindowsUpdateMonitor”) chosen to blend with legitimate OS components.
+    
+### **Collection / Discovery (Minimal)**
+- No discovery commands used in this simulation, but Stage-2 scaffolding allows for expanding future behavioural stages (e.g., enumeration, persistence validation).
+    
+### **Command-and-Control**
+- HTTP beacon attempt using `Invoke-WebRequest`.
+- Loopback target (`127.0.0.1`) substitutes for a real malicious server.
+- Logging used to confirm simulated C2 attempts.
+    
+### **Impact**
+- No destructive or system-modifying behaviour outside persistence and file creation.
+- Simulated dropper chain designed purely for study and forensic reconstruction.
 
 ---
 
 ## 7. MITRE ATT&CK
 
+### **Initial Access**
+
+| MITRE ID      | Technique            | Evidence                                                    |
+| ------------- | -------------------- | ----------------------------------------------------------- |
+| **T1566.001** | Phishing: Attachment | User accessed malicious ZIP attachment (`$MFT`, Shellbags). |
+
+### **Execution**
+
+|MITRE ID|Technique|Evidence|
+|---|---|---|
+|**T1204.002**|User Execution: Malicious File|UserAssist confirmed execution of `Invoice.pdf.lnk`.|
+|**T1059.001**|PowerShell|Prefetch + LNK metadata confirmed PowerShell execution.|
+
+### **Persistence**
+
+|MITRE ID|Technique|Evidence|
+|---|---|---|
+|**T1053.005**|Scheduled Task|`WindowsUpdateMonitor` task file + TaskCache registry keys.|
+
+### **Defense Evasion**
+
+|MITRE ID|Technique|Evidence|
+|---|---|---|
+|**T1036.005**|Masquerading: Match Legitimate Name/Location|`%APPDATA%\WinUpdate`, fake PDF LNK.|
+|**T1059.001**|ExecutionPolicy Bypass|LNK metadata shows `-ExecutionPolicy Bypass`.|
+
+### **Command and Control**
+
+|MITRE ID|Technique|Evidence|
+|---|---|---|
+|**T1071.001**|Web Protocols|Stage-2 script uses `Invoke-WebRequest`.|
+
 ---
 
 ## 8. Components Used
 
+### 8.1 Invoice_2025 Contents
+invoice.pdf.lnk
+Target:
+```
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "%USERPROFILE%\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1"
+```
+invoice_data.dat.ps1
+```
+# Log execution
+$log = "$env:USERPROFILE\Downloads\Invoice_2025\loader_log.txt"
+Add-Content $log ("[{0}] loader.ps1 executed on {1}" -f (Get-Date), $env:COMPUTERNAME)
+
+# Create working directory
+$work = "$env:APPDATA\WinUpdate"
+if (!(Test-Path $work)) { New-Item -ItemType Directory -Path $work | Out-Null }
+
+$stage2 = "$work\stage2.ps1"
+@'
+# ==============================
+# Stage 2 Beacon Simulator (Safe)
+# ==============================
+
+$log = "$env:USERPROFILE\Downloads\Invoice_2025\stage2_log.txt"
+Add-Content $log ("[{0}] Stage 2 activated" -f (Get-Date))
+
+# C2 callback
+try {
+    Invoke-WebRequest -Uri "http://127.0.0.1/ping" -TimeoutSec 2 -UseBasicParsing
+} catch {
+    Add-Content $log ("C2 failed at {0}" -f (Get-Date))
+}
+
+Start-Sleep -Seconds 10
+'@ | Out-File -Encoding ASCII $stage2
+
+# Create persistence
+
+$taskName = "WindowsUpdateMonitor"
+$action = "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$stage2`""
+
+schtasks /create /sc minute /mo 30 /tn $taskName /tr $action /f | Out-Null
+
+# Execute Stage 2
+
+powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File $stage2
+```
+/Documents/
 ---
 
 ## 8. Conclusion

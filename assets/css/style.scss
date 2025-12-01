@@ -3,9 +3,9 @@
 
 @import "jekyll-theme-hacker";
 
-/* container: scales but doesn't become too wide */
+/* container: scales but doesn't become insanely wide */
 .container {
-  max-width: 960px;   /* adjust: 800–1100px is typical */
+  max-width: 960px;   /* tweak: 800–1100px is common */
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
@@ -17,7 +17,7 @@ img {
   height: auto;
 }
 
-/* prevent horizontal scrolling caused by long text or code */
+/* let code/text wrap instead of forcing page horizontal scroll */
 pre,
 code {
   white-space: pre-wrap;
@@ -25,12 +25,7 @@ code {
   word-break: break-word;
 }
 
+/* if something is still too wide, scroll just the code block, not the whole page */
 pre {
-  overflow-x: auto;   /* scroll inside code blocks only */
-}
-
-/* last-resort safety net */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: auto;
 }

@@ -6,16 +6,16 @@ title: Simulated Emotet-Style Loader Infection (DFIR Case Study)
 # Simulated Emotet-Style Loader Infection (DFIR Case Study)
 
 ---
-## 1. Executive Summary
+## 1. Executive Summary (Non-technical)
+This project demonstrates how a modern email-based cyberattack can unfold on a Windows computer and how digital forensic techniques are used to reconstruct what happened.
 
-This report documents a **controlled, self-authored simulation** of a modern Emotet-style intrusion chain executed inside a Windows virtual machine (VM). The goals of this exercise are to:
+The simulation begins with a realistic phishing email containing a ZIP file that appears to hold an invoice. When the file is opened, it secretly launches a hidden script instead of a real document. This script performs several actions often seen in real cyberattacks:
+- It installs itself in a location that looks legitimate
+- It creates a scheduled task so it can automatically run again in the future
+- It attempts to communicate back to an external server
+- It records its own activity so those actions can be analysed later
 
-- Understand how a contemporary loader behaves on a Windows endpoint
-    
-- Observe artefacts left at each stage (delivery, execution, persistence, “C2”)
-
-No real malware was used at any point.  
-All scripts, loaders, and “C2” activity were written specifically for this lab and executed only inside an isolated VM.
+All of this was carried out inside an isolated virtual machine. After the simulation, the system was analyzed using industry-standard digital forensics tools to identify evidence of user actions, file creations, script execution, attempts at network communication, and persistence mechanisms.
 
 High-level flow:
 1. User receives phishing email with `Invoice_2025.zip`.  
@@ -26,9 +26,6 @@ High-level flow:
 6. Loader creates Scheduled Task persistence (`WindowsUpdateMonitor`).  
 7. Stage 2 attempts a simulated C2 callback to `http://127.0.0.1/ping` and logs the result.
     
-
-All of these stages leave observable artefacts in the filesystem, registry, event logs, PowerShell logs, SRUM, and user activity (LNK metadata, shellbags, Jump Lists, etc.).
-
 ---
 
 ## 2. Scope & Environment
@@ -58,12 +55,11 @@ All of these stages leave observable artefacts in the filesystem, registry, even
 |Timelines|MFTECmd (MFT)|
 |Shortcuts / LNK|LECmd|
 |Prefetch|PECmd|
-|Registry|RECmd, Registry Explorer, RegRipper|
-|Event Logs|EvtxECmd, Windows Event Viewer|
+|Registry|RECmd, Registry Explorer|
 |Shellbags|SBECmd|
 |Jump Lists|JLECmd|
 |SRUM|SrumECmd|
-|Text / Code|Notepad++, VS Code|
+|Text|Notepad|
 
 ---
 
@@ -406,21 +402,15 @@ schtasks /create /sc minute /mo 30 /tn $taskName /tr $action /f | Out-Null
 
 powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File $stage2
 ```
-/Documents/
+
 ---
 
 ## 8. Conclusion
 
 This controlled simulation demonstrates how a relatively simple PowerShell-based loader chain can leave a **rich, multi-surface forensic footprint** across:
-
 - Filesystem (MFT, USN, dropped scripts, logs)
-    
 - Registry (UserAssist, TaskCache, MUICache)
-    
-- Event logs (Security, PowerShell Operational)
-    
 - Application telemetry (Prefetch, SRUM)
-    
 - User artefacts (LNK, shellbags, Jump Lists)
-        
+  
 ---

@@ -244,11 +244,10 @@ Confirms creation of a Scheduled Task named WindowsUpdateMonitor pointing to pow
 <img width="695" height="182" alt="image" src="https://github.com/user-attachments/assets/8f8c5cb8-aa66-4416-a4bc-4a1c11e63d5c" />
 <img width="1336" height="320" alt="image" src="https://github.com/user-attachments/assets/750cab3e-83ac-479f-96e9-3a148d48c4e9" />
 
-### 5.7 Netwrok Artefacts
+### 5.7 Network Artefacts
 
 Stage-2 used loopback `127.0.0.1`, so:
-- No host firewall logs  
-- No host EDR network telemetry  
+- No host event logs  
 - No host packet captures  
 - No host DNS events  
 

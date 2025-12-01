@@ -194,10 +194,6 @@ All USN Journal entries confirm these operations occurred between **04:23:00–0
 - Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025 with last write around 04:22:41.
 - Interpretation: Shows the extracted folder was opened.
 
-#### 5.2.4 User opens inner Documents subfolder
-- Evidence: Shellbag path Desktop\My Computer\Downloads\Invoice_2025\Documents (or equivalent).
-- Interpretation: Indicates navigation into the folder containing the Stage-1 script.
-
 <img width="1680" height="739" alt="image" src="https://github.com/user-attachments/assets/89e7c51c-c5d2-4645-9896-936bdeb95c81" />
 
 

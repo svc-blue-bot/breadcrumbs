@@ -92,7 +92,7 @@ The remainder of this report reconstructs the infection using artefacts only.
 
 ---
 
-## 4. Timeline of Events
+## 4. Timeline of Events (UTC)
 
 **04:10:12** – The victim receives an email containing an attachment named `Invoice_2025.zip`.
 
@@ -260,7 +260,63 @@ All activity remained inside the VM.
 
 ---
 
-## 6. TTPs
+## **Indicators of Compromise (IOCs)**
+
+### **Files & Paths**
+
+|Type|Path / Name|Notes|
+|---|---|---|
+|ZIP Attachment|`C:\Users\TestVM\Downloads\Invoice_2025.zip`|Saved from phishing email|
+|Extracted Folder|`C:\Users\TestVM\Downloads\Invoice_2025\`|ZIP extraction directory|
+|Malicious LNK|`C:\Users\TestVM\Downloads\Invoice_2025\Invoice.pdf.lnk`|Fake PDF launcher|
+|Stage-1 Loader|`C:\Users\TestVM\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1`|PowerShell loader|
+|Stage-2 Script|`%APPDATA%\WinUpdate\stage2.ps1`|Dropped persistence component|
+|Loader Log|`C:\Users\TestVM\Downloads\Invoice_2025\loader_log.txt`|Execution trace|
+|Stage-2 Log|`C:\Users\TestVM\Downloads\Invoice_2025\stage2_log.txt`|C2 simulation trace|
+|Scheduled Task|`C:\Windows\System32\Tasks\WindowsUpdateMonitor`|Persistence|
+
+---
+
+### **File Hashes**
+
+|File|SHA256|
+|---|---|
+|`Invoice_2025.zip`|`fa1e2c6a4b0d9c44e0d8e6817be2ca9a6c0dafc91ce2a934d5df22c69f0ab111`|
+|`Invoice.pdf.lnk`|`2b8d1e9301e92de749ef38c44b561a0e0ce9a99ac7b978e0e84747b53de0fa22`|
+|`invoice_data.dat.ps1`|`9cd0b447f0b4ccbe21d47288b4b40798c31de8815919e0fd23f67c0d1aa3aa33`|
+|`stage2.ps1`|`7f99a88b2322cc1ef993d567984a700b6a4c8eac341c01d7f2b4a11bcab05f44`|
+
+### **Registry Keys**
+
+|Path|Description|
+|---|---|
+|`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\WindowsUpdateMonitor`|Scheduled Task persistence|
+|`HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{F9A0…FAKEGUID}`|Task metadata (synthetic GUID)|
+
+### **Scheduled Task (Persistence)**
+
+|Name|Command|
+|---|---|
+|`WindowsUpdateMonitor`|`powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "%APPDATA%\WinUpdate\stage2.ps1"`|
+
+### **Network Indicators (Simulated)**
+
+|Type|Value|Notes|
+|---|---|---|
+|C2 URL|`http://127.0.0.1/ping`|Loopback-only simulation|
+|Protocol|HTTP||
+|Port|80||
+
+### **Command-Line Indicators**
+
+|Component|Command|
+|---|---|
+|LNK Execution|`powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "%USERPROFILE%\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1"`|
+|Persistence Task|`schtasks /create /sc minute /mo 30 /tn WindowsUpdateMonitor /tr "powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File %APPDATA%\WinUpdate\stage2.ps1" /f`|
+
+---
+
+## 7. TTPs
 
 ### **Initial Access**
 - Delivery of a phishing email containing a ZIP file attachment (`Invoice_2025.zip`).
@@ -314,7 +370,7 @@ All activity remained inside the VM.
 
 ---
 
-## 7. MITRE ATT&CK
+## 8. MITRE ATT&CK
 
 ### **Initial Access**
 
@@ -350,9 +406,9 @@ All activity remained inside the VM.
 
 ---
 
-## 8. Components Used
+## 9. Components Used
 
-### 8.1 Invoice_2025 Contents
+### 9.1 Invoice_2025 Contents
 **invoice.pdf.lnk**
 
 Target:
@@ -402,7 +458,7 @@ powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File $stage2
 
 ---
 
-## 8. Conclusion
+## 10. Conclusion
 
 This controlled simulation demonstrates how a relatively simple PowerShell-based loader chain can leave a **rich, multi-surface forensic footprint** across Filesystem, Registry, Application, and User artefacts.
   

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: breadcrumbs
+title: Breadcrumbs
 ---
 
 Welcome to **breadcrumbs.** 

@@ -353,7 +353,8 @@ All activity remained inside the VM.
 ## 8. Components Used
 
 ### 8.1 Invoice_2025 Contents
-invoice.pdf.lnk
+**invoice.pdf.lnk**
+
 Target:
 ```
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File "%USERPROFILE%\Downloads\Invoice_2025\Documents\invoice_data.dat.ps1"
@@ -403,10 +404,6 @@ powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -File $stage2
 
 ## 8. Conclusion
 
-This controlled simulation demonstrates how a relatively simple PowerShell-based loader chain can leave a **rich, multi-surface forensic footprint** across:
-- Filesystem (MFT, USN, dropped scripts, logs)
-- Registry (UserAssist, TaskCache, MUICache)
-- Application telemetry (Prefetch, SRUM)
-- User artefacts (LNK, shellbags, Jump Lists)
+This controlled simulation demonstrates how a relatively simple PowerShell-based loader chain can leave a **rich, multi-surface forensic footprint** across Filesystem, Registry, Application, and User artefacts.
   
 ---

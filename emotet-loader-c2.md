@@ -206,7 +206,7 @@ All USN Journal entries confirm these operations occurred between **04:23:00–0
 - Evidence: POWERSHELL.EXE-*.pf prefetch file (parsed with PECmd) showing:
 Last Run Time around 2025-11-29 04:23:09–04:23:12.
 - Interpretation: Confirms powershell.exe ran in the same window as the LNK execution and loader activity.
-Screenshot placeholder:
+
 <img width="1623" height="137" alt="image" src="https://github.com/user-attachments/assets/a00150b5-8deb-45c7-96ba-52ad5aa58f2a" />
 
 ### 5.5 USN Journal

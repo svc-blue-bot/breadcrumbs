@@ -13,7 +13,7 @@ The simulation begins with a realistic phishing email containing a ZIP file that
 - It installs itself in a location that looks legitimate
 - It creates a scheduled task so it can automatically run again in the future
 - It attempts to communicate back to an external server
-- It records its own activity so those actions can be analysed later
+- It records its own activity so those actions can be verified later
 
 All of this was carried out inside an isolated virtual machine. After the simulation, the system was analyzed using industry-standard digital forensics tools to identify evidence of user actions, file creations, script execution, attempts at network communication, and persistence mechanisms.
 

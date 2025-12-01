@@ -16,15 +16,6 @@ The simulation begins with a realistic phishing email containing a ZIP file that
 - It records its own activity so those actions can be verified later
 
 All of this was carried out inside an isolated virtual machine. After the simulation, the system was analyzed using industry-standard digital forensics tools to identify evidence of user actions, file creations, script execution, attempts at network communication, and persistence mechanisms.
-
-Technical flow:
-1. User receives phishing email with `Invoice_2025.zip`.  
-2. User saves ZIP to Downloads and extracts contents.  
-3. User opens a malicious LNK (`Invoice.pdf.lnk`) disguised as a PDF.  
-4. LNK runs a PowerShell loader (`invoice_data.dat.ps1`).  
-5. Loader drops Stage 2 (`stage2.ps1`) into `%APPDATA%\WinUpdate`.  
-6. Loader creates Scheduled Task persistence (`WindowsUpdateMonitor`).  
-7. Stage 2 attempts a simulated C2 callback to `http://127.0.0.1/ping` and logs the result.
     
 ---
 

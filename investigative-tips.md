@@ -1,5 +1,5 @@
 # **Investigation Tips Worth Keeping Close**
-Investigation Tips Worth Keeping Close is a list I originally wrote for myself, something I revisit and add to. I’m sharing it here because the same small habits that keep me grounded during messy investigations, while this isn't the full list this still may help someone else stay on track too.
+Investigation Tips Worth Keeping Close is a list I originally wrote for myself, something I revisit and add to. While this isn't the full list, I've modified and am sharing it here because the same small habits that keep me grounded during messy investigations may help someone else stay on track too.
 
 ---
 

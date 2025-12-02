@@ -36,9 +36,7 @@ Use it to orient yourself quickly, then build your own version as you go-add com
 4. **Network**: BPF/tcpdump capture + Wireshark/tshark; look for beaconing, SNI anomalies, DNS weirdness.
     
 5. **Malware**: hash + strings -> PE triage (PEStudio / CAPA) -> sandbox (Procmon / TCPView / Regshot / Fiddler).
-    
-6. **Decide**: contain, collect (KAPE triage), detect (Sigma), and document.
-    
+
 
 ---
 

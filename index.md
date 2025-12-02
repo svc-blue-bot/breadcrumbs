@@ -4,11 +4,9 @@ title: Breadcrumbs
 ---
 
 Welcome to **breadcrumbs.** 
-This a collection of small, reproducible DFIR practice experiments I have created.  
+This a collection of small, reproducible DFIR practice experiments, quickstart guides, cheatsheets, and writeups I have created.  
 
-Each “experiment” starts from an attack or tool, then walks through the traces it leaves behind.
-
-I.e. I break things, then go hunting for the evidence.
+I.e. I break things, go hunting for the evidence, then write about it.
 
 ---
 
@@ -18,6 +16,9 @@ First experiment:
 
 -> 01/12/2025 [Simulated Emotet > Loader > C2](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2)
 
+DFIR Lab Quickstart Sheet:
+
+-> 02/12/2025 [DFIR Lab: Quickstart Sheet](https://svc-blue-bot.github.io/breadcrumbs/DFIRLab-quickstart-sheet)
 
 ---
 

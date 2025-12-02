@@ -41,9 +41,6 @@ Avoid confirmation bias, check presence before proof.
 **• Keep an incident response checklist handy.**  
 It prevents tunnel vision and ensures coverage of foundational steps.
 
-**• Compare anything suspicious against baseline behavior.**  
-Abnormality only matters when you know what “normal” looks like.
-
 **• Start by identifying what the machine actually provides.**  
 Know your available sources before diving deep.
 
@@ -59,13 +56,8 @@ Limit time spent chasing a single IOC unless it’s producing meaningful returns
 **• Document as you investigate.**  
 A live writeup solidifies learning and reduces backtracking later.
 
-**• Use a hex editor when file type identification is unclear.**
-
-**• Rephrase any AI-generated help in your own words.**  
-This exposes misunderstandings and prevents shallow knowledge.
-
 **• grep is your friend.**  
-Simple text searching solves more problems than people admit.
+This is an incredibly powerful tool, text searching solves more problems than people admit.
 
 **• Fully chase an IOC across all systems then move on.**  
 Exhaust the thread, close it out, proceed.
@@ -74,6 +66,24 @@ Exhaust the thread, close it out, proceed.
 
 **• If you get stuck, move forward.**  
 Later findings often unlock earlier confusion.
+
+**• Treat every timestamp as suspect until proven otherwise.**  
+Time drift, timezone inconsistencies, log rollover, and attacker-controlled artifacts can quietly distort your reasoning if you assume timestamps are inherently trustworthy.
+
+**• Validate that an artifact is _causal_, not merely _adjacent_.**  
+Co-occurrence isn’t evidence. A process starting near malicious activity doesn’t imply involvement, check lineage, parentage, command line, and execution context.
+
+**• Always check for what _should_ be there but isn’t.**  
+Absence of expected logs, missing binaries, wiped browser histories, and abrupt gaps in process lineage often tell a clearer story than the artifacts that remain.
+
+**• Track attacker energy, not just attacker actions.**  
+Look for points where the adversary had to fight the system: privilege boundaries, failed recon, noisy scans, mistyped commands. These friction points reveal intent and capability.
+
+**• Reconstruct attacker perspective when possible.**  
+Ask: “What did they see? What could they enumerate? What access did they believe they had?” This often clarifies choices that seem illogical from a defender’s view.
+
+**• Revisit earlier assumptions after every major discovery.**  
+Important findings often invalidate earlier interpretations. A quick “sanity review” prevents early-stage assumptions from contaminating your conclusions.
 
 ---
 

@@ -6,7 +6,7 @@ Investigation Tips Worth Keeping Close is a list I originally wrote for myself, 
 ## General Tips
 
 **• Slow down during verification.**  
-Tiny details—like an unfamiliar DNS chunk—can carry major implications if you rush past them.
+Tiny details like an unfamiliar DNS chunk can carry major implications if you rush past them.
 
 **• Don’t just *see* artifacts observe them.**  
 Treat every trace as a clue with context, relationships, and limitations.

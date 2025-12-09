@@ -269,11 +269,11 @@ Summary of what you get, what to be careful about, and when to use each artifact
 **Always combine artifacts.**
 Execution evidence is strongest when at least two independent artifacts agree.
 Preferred combinations:
-• Prefetch plus AmCache
-• AmCache plus SRUM for network-aware malware
-• ShimCache plus LNK or Jumplists for deleted binaries
-• UserAssist plus MRUs for user-driven execution
-• Prefetch plus Event Logs for high-confidence timelines
-• ShimCache plus LNK or Jumplists for deleted binaries  
-• UserAssist plus MRUs for user-driven execution  
-• Prefetch plus Event Logs for high-confidence timelines
+- Prefetch plus AmCache
+- AmCache plus SRUM for network-aware malware
+- ShimCache plus LNK or Jumplists for deleted binaries
+- UserAssist plus MRUs for user-driven execution
+- Prefetch plus Event Logs for high-confidence timelines
+- ShimCache plus LNK or Jumplists for deleted binaries  
+- UserAssist plus MRUs for user-driven execution  
+- Prefetch plus Event Logs for high-confidence timelines

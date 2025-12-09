@@ -20,6 +20,8 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 09/12/2025 [Windows Artifact Reference](https://svc-blue-bot.github.io/breadcrumbs/Windows-Artifact-Reference)
 
+-> 09/12/2025 [Windows Memory Reference](https://svc-blue-bot.github.io/breadcrumbs/windows-memory-reference)
+
 ---
 
 This is all lab work on test systems only; nothing here is advice for breaking the law.

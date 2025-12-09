@@ -1,4 +1,4 @@
-# Windows Artifact Reference Checklist
+# Windows Artefact Reference Checklist
 Summary of what you get, what to be careful about, and when to use each artifact.
 
 ## Prefetch (.pf)

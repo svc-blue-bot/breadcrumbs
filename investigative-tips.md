@@ -88,7 +88,7 @@ Important findings often invalidate earlier interpretations. A quick “sanity r
 
 ---
 
-## Tips for BTLO
+## Tips for Blue Team Labs Online (BTLO)
 These tips are more so for online labs / challenges where everything is provided, and may be repeat some points from the above as it was originally intended to be seperate.
 
 **• Start by scoping what you actually have.**  

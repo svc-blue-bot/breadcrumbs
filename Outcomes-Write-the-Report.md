@@ -119,6 +119,3 @@ If cyber has a moral, maybe it’s this:
 
 >Outcomes write the report. Decisions shape the craft.
 
-If cyber has a moral, maybe it’s this:
-
->Outcomes write the report. Decisions shape the craft.

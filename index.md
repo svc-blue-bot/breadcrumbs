@@ -18,7 +18,7 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 03/12/2025 [Investigation Tips Worth Keeping Close](https://svc-blue-bot.github.io/breadcrumbs/investigative-tips)
 
--> 09/12/2025 [Windows Artefact Reference](https://svc-blue-bot.github.io/breadcrumbs/Windows-Artefact-Reference)
+-> 09/12/2025 [Windows Artifact Reference](https://svc-blue-bot.github.io/breadcrumbs/Windows-Artifact-Reference)
 
 ---
 

@@ -1,8 +1,3 @@
----
-layout: default
-title: Windows Memory Artifact Reference
----
-
 # Windows Memory Artifact Reference
 
 ---

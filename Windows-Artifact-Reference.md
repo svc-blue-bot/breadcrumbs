@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Windows Artifact Reference Checklist
+title: Windows Artifact Reference
 ---
 
-# Windows Artifact Reference Checklist
+# Windows Artifact Reference 
 Summary of what you get, what to be careful about, and when to use each artifact.
 
 ## Prefetch (.pf)

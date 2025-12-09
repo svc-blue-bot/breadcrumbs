@@ -24,6 +24,8 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 09/12/2025 [Hunting C2 Activity In Memory](https://svc-blue-bot.github.io/breadcrumbs/hunting-c2-in-memory)
 
+-> 09/12/2025 [Outcomes Write the Report. Decisions Shape the Craft.](https://svc-blue-bot.github.io/breadcrumbs/Outcomes-Write-the-Report)
+
 ---
 
 This is all lab work on test systems only; nothing here is advice for breaking the law.

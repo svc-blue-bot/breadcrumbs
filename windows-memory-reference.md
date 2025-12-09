@@ -1,3 +1,8 @@
+---
+title: Windows Memory Artifact Reference
+layout: default
+---
+
 # Windows Memory Artifact Reference
 
 
@@ -381,4 +386,3 @@ Plugins
 Objective  
 Find malicious drivers, kernel hooks and stealth rootkits.
 
----

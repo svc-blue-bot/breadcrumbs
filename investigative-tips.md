@@ -109,3 +109,5 @@ Tag anything interesting, events, hosts, users, timestamps and loosely group the
 
 **• Once the picture is big enough, start forming hypotheses.**  
 When you’ve got enough context, propose working explanations and test them against the data. Validate, refine, or discard them and gradually build a timeline and storyline grounded in what’s actually confirmed.
+
+---

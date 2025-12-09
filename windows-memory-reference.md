@@ -1,6 +1,5 @@
----
 # Windows Memory Artifact Reference
----
+
 
 # 1. Raw Physical Memory Dump (RAW)
 

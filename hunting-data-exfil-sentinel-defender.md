@@ -139,7 +139,7 @@ CloudAppEvents
 | order by Actions desc
 ```
 
-## CloudAppEvents — “anonymous proxy” access (context multiplier)
+## CloudAppEvents: anonymous proxy access (provides additional context)
 
 ```
 let timeframe = 14d;

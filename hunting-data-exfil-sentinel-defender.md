@@ -1,5 +1,4 @@
-# Hunting data exfiltration in Microsoft Sentinel + Defender - KQL field guide
-
+# Hunting data exfiltration in Microsoft Sentinel + Defender
 Microsoft gives you the raw ingredients for a defensible exfiltration story across multiple surfaces, but they live across different tables and in a real incident you win by pivoting cleanly between them. The tables below are all part of the Microsoft Defender XDR advanced hunting schema and/or common Microsoft Sentinel Log Analytics tables.
 
 ---

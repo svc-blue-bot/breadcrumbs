@@ -295,6 +295,7 @@ These APIs are commonly used together in loader stubs to:
 - Introduce conditional execution paths based on environment behavior
     
 While none of these calls alone prove anti-analysis, the pattern and density strongly suggest execution conditioning rather than functional work:
+
 <img width="768" height="820" alt="image2" src="https://github.com/user-attachments/assets/48d1fca8-a3ca-4bbd-a23d-1ff9c586a1a8" />
 
 

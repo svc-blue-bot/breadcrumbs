@@ -24,11 +24,7 @@ Hunt for common “get data out” tooling (rclone, scp/sftp, cloud CLIs) and st
 
 ```
 let timeframe = 7d;
-let Keywords = dynamic([
-  "rclone","winscp","pscp","plink","scp ","sftp","ftp","lftp",
-  "curl","wget","azcopy","aws","gsutil","megacmd","dropbox",
-  "7z","7za","winrar","rar","tar","gzip","gpg","openssl"
-]);
+let Keywords = dynamic(["rclone", "winscp", "putty", "pscp", "plink", "ssh", "scp", "sftp", "rsync", "ftp", "lftp", "tftp", "ncftp", "filezilla", "cyberduck", "mobaxterm", "curl", "wget", "aria2c", "httpie", "bitsadmin", "certutil", "powershell", "pwsh", "az", "azcopy", "aws", "s3cmd", "s5cmd", "gcloud", "gsutil", "oci", "ibmcloud", "openstack", "swift", "mc", "megacmd", "mega-put", "mega-get", "megasync", "dropbox", "onedrive", "googledrivefs", "boxdrive", "nextcloud", "owncloud", "syncthing", "resilio", "duplicati", "restic", "borg", "kopia", "7z", "7za", "winrar", "rar", "zip", "tar", "gzip", "bzip2", "xz", "zstd", "gpg", "openssl", "age", "sops", "stunnel", "socat", "netcat", "ncat", "ngrok", "cloudflared", "git", "gh", "glab"]);
 DeviceProcessEvents
 | where Timestamp > ago(timeframe)
 | where ProcessCommandLine has_any (Keywords) or FileName has_any (Keywords)
@@ -67,10 +63,7 @@ This is your fastest way to discover Which process talked to what.
 
 ```
 let timeframe = 7d;
-let exfildomains = dynamic([
-  "dropbox.com","drive.google.com","mega.nz","transfer.sh","pastebin.com",
-  "box.com","1drv.ms","onedrive.live.com","slack.com","discord.com"
-]);
+let exfildomains = dynamic(["dropbox.com", "dropboxapi.com", "db.tt", "dropboxusercontent.com", "dl.dropboxusercontent.com", "dl.dropbox.com", "drive.google.com", "*.drive.google.com", "drive.usercontent.google.com", "drive-data-export.usercontent.google.com", "docs.google.com", "*.docs.google.com", "sheets.google.com", "slides.google.com", "takeout.google.com", "*.googleusercontent.com", "*.googleapis.com", "apis.google.com", "onedrive.com", "*.onedrive.com", "onedrive.live.com", "*.onedrive.live.com", "*.files.1drv.com", "storage.live.com", "*.storage.live.com", "login.live.com", "*.sharepoint.com", "*.my.sharepoint.com", "<tenant>-my.sharepoint.com", "1drv.ms", "*.box.com", "*.app.box.com", "*.box.net", "*.boxcdn.net", "*.boxcloud.com", "*.services.box.com", "upload.box.com", "upload.box.net", "upload.app.box.com", "upload.ent.box.com", "mega.nz", "mega.io", "pastebin.com", "gist.github.com", "slack.com", "*.slack.com", "discord.com", "cdn.discordapp.com", "media.discordapp.net"]);
 DeviceNetworkEvents
 | where Timestamp > ago(timeframe)
 | where RemoteUrl has_any (exfildomains) or RemoteIPType == "Public"

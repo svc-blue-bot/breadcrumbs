@@ -265,7 +265,7 @@ Because "EmailAttachmentInfo" includes "FileSize", you can rank by total bytes.
 
 ```
 let timeframe = 7d;
-let OrgDomains = dynamic(["yourcompany.com"]); // add your real domains
+let OrgDomains = dynamic(["<targetdomain>"]); // add your target domains
 EmailAttachmentInfo
 | where Timestamp > ago(timeframe)
 | extend RecipientDomain = tostring(split(RecipientEmailAddress, "@")[1])

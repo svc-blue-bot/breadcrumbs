@@ -297,7 +297,7 @@ EmailAttachmentInfo
 
 ```
 let timeframe = 14d;
-let ExfilDomains = dynamic(["dropbox.com","drive.google.com","mega.nz","transfer.sh","box.com"]);
+let ExfilDomains = dynamic(["dropbox.com", "dropboxapi.com", "db.tt", "dropboxusercontent.com", "dl.dropboxusercontent.com", "dl.dropbox.com", "drive.google.com", "*.drive.google.com", "drive.usercontent.google.com", "drive-data-export.usercontent.google.com", "docs.google.com", "*.docs.google.com", "sheets.google.com", "slides.google.com", "takeout.google.com", "*.googleusercontent.com", "*.googleapis.com", "apis.google.com", "onedrive.com", "*.onedrive.com", "onedrive.live.com", "*.onedrive.live.com", "*.files.1drv.com", "storage.live.com", "*.storage.live.com", "login.live.com", "*.sharepoint.com", "*.my.sharepoint.com", "<tenant>-my.sharepoint.com", "1drv.ms", "*.box.com", "*.app.box.com", "*.box.net", "*.boxcdn.net", "*.boxcloud.com", "*.services.box.com", "upload.box.com", "upload.box.net", "upload.app.box.com", "upload.ent.box.com", "mega.nz", "mega.io", "pastebin.com", "gist.github.com", "slack.com", "*.slack.com", "discord.com", "cdn.discordapp.com", "media.discordapp.net"]);
 EmailUrlInfo
 | where Timestamp > ago(timeframe)
 | where UrlDomain has_any (ExfilDomains)

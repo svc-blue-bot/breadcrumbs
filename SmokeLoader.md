@@ -2,7 +2,7 @@
 
 Sample: `35bf9dfd223e02da2ee3d57ec493156787a3c2cecb8b655a583985a2f14cc6e3`  
 Environment: FLARE VM, fully isolated  
-Objective: Understand loader behavior, staging logic, and memory-resident artifacts using static, dynamic, and memory-aware analysis
+Purpose: This write-up documents a time-boxed static and dynamic triage of a suspected staged malware loader. The goal was not full unpacking or payload recovery, but to rapidly classify behavior, validate execution staging, and assess anti-analysis intent under realistic analyst constraints. Analysis was intentionally stopped once Loader characteristics were confirmed, Dynamic capability expansion was observed, Anti-analysis behavior materially interfered with debugging. Deeper reverse engineering (patching, dumping, or bypassing execution guards) was considered out of scope to reflect real-world prioritization decisions. Conclusions are based on observable behavior, not exhaustive reconstruction.
 
 ---
 
@@ -370,7 +370,7 @@ From that perspective, the sample has already been sufficiently classified.
 
 ---
 
-# Part III: Analyst Assessment
+# Part III: Assessment
 
 ## 13. Final assessment
 
@@ -391,7 +391,7 @@ No evidence suggests this binary is a standalone payload.
 
 ---
 
-## 14. What could be done next (but wasn’t)
+## 14. What could be done next but wasn’t
 
 For completeness, the following steps would be logical continuations in a deeper investigation:
 - Bypassing timing and exception checks  
@@ -410,5 +410,3 @@ This analysis demonstrates a realistic loader triage workflow under time constra
 - Controlled stopping point once classification is achieved
     
 Not every sample needs to be fully unpacked to be understood. In real-world analysis, knowing when to stop is as important as knowing how to continue.
-
-This loader was designed to consume analyst time. It succeeded—up to the point where its purpose became clear.

@@ -338,9 +338,7 @@ Those steps exceed the scope of this analysis by design.
 
 ## 11. Dynamic library loading and staged capability expansion
 
-One meaningful execution milestone was the successful breakpoint hit on `LoadLibraryA`, confirming that:
-- The loader dynamically expands functionality at runtime
-- Additional capabilities are conditionally enabled post-environment checks
+One meaningful execution milestone was observing execution reach LoadLibraryA, confirming that the loader dynamically expands functionality at runtime.
 
 The presence of `WINHTTP.dll` at this stage reinforces earlier static conclusions: networking is intended, but only after execution conditions are satisfied.
 

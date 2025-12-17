@@ -412,7 +412,7 @@ SecurityEvent holds Windows security events collected into Sentinel.
 
 ```
 let timeframe = 7d;
-let Indicators = dynamic(["rclone","winscp","pscp","plink","scp ","sftp ","ftp","azcopy","7z","winrar","rar ","tar ","gpg","openssl"]);
+let Indicators = dynamic(["rclone", "winscp", "putty", "pscp", "plink", "ssh", "scp", "sftp", "rsync", "ftp", "lftp", "tftp", "ncftp", "filezilla", "cyberduck", "mobaxterm", "curl", "wget", "aria2c", "httpie", "bitsadmin", "certutil", "powershell", "pwsh", "az", "azcopy", "aws", "s3cmd", "s5cmd", "gcloud", "gsutil", "oci", "ibmcloud", "openstack", "swift", "mc", "megacmd", "mega-put", "mega-get", "megasync", "dropbox", "onedrive", "googledrivefs", "boxdrive", "nextcloud", "owncloud", "syncthing", "resilio", "duplicati", "restic", "borg", "kopia", "7z", "7za", "winrar", "rar", "zip", "tar", "gzip", "bzip2", "xz", "zstd", "gpg", "openssl", "age", "sops", "stunnel", "socat", "netcat", "ncat", "ngrok", "cloudflared", "git", "gh", "glab"]);
 SecurityEvent
 | where TimeGenerated > ago(timeframe)
 | where EventID == 4688

@@ -84,7 +84,7 @@ This is useful when attackers install or configure a tool.
 
 ```
 let timeframe = 14d;
-let Tools = dynamic(["rclone","winscp","filezilla","putty","pscp","plink"]);
+let Tools = dynamic(["rclone", "winscp", "putty", "pscp", "plink", "ssh", "scp", "sftp", "rsync", "ftp", "lftp", "tftp", "ncftp", "filezilla", "cyberduck", "mobaxterm", "curl", "wget", "aria2c", "httpie", "bitsadmin", "certutil", "powershell", "pwsh", "az", "azcopy", "aws", "s3cmd", "s5cmd", "gcloud", "gsutil", "oci", "ibmcloud", "openstack", "swift", "mc", "megacmd", "mega-put", "mega-get", "megasync", "dropbox", "onedrive", "googledrivefs", "boxdrive", "nextcloud", "owncloud", "syncthing", "resilio", "duplicati", "restic", "borg", "kopia", "7z", "7za", "winrar", "rar", "zip", "tar", "gzip", "bzip2", "xz", "zstd", "gpg", "openssl", "age", "sops", "stunnel", "socat", "netcat", "ncat", "ngrok", "cloudflared", "git", "gh", "glab"]);
 DeviceRegistryEvents
 | where Timestamp > ago(timeframe)
 | where RegistryKey has_any (Tools) or RegistryValueData has_any (Tools)

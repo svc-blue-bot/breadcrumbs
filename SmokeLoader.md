@@ -163,7 +163,6 @@ This indicates awareness of execution context and timing, which is commonly used
 
 Exception and control-flow handling
 
-- `UnhandledExceptionFilter`
 - `SetUnhandledExceptionFilter`
 - `RtlUnwind`
     

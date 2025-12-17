@@ -16,6 +16,8 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 01/12/2025 [Simulated Emotet > Loader > C2](https://svc-blue-bot.github.io/breadcrumbs/emotet-loader-c2)
 
+-> 17/12/2025 [SmokeLoader](https://svc-blue-bot.github.io/breadcrumbs/SmokeLoader)
+
 ### Tips/References/Cheat Sheets/Quickstart Guides
 
 -> 02/12/2025 [DFIR Lab: Quickstart Sheet](https://svc-blue-bot.github.io/breadcrumbs/DFIRLab-quickstart-sheet)

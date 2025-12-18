@@ -1,8 +1,11 @@
 # SmokeLoader Style Loader Analysis
 
 Sample: `35bf9dfd223e02da2ee3d57ec493156787a3c2cecb8b655a583985a2f14cc6e3`  
+
 Environment: FLARE VM, fully isolated  
+
 Time limit: 3 Hours (excluding this report)
+
 Purpose: This write-up documents a time-boxed static and dynamic triage of a suspected staged malware loader. The goal was not full unpacking or payload recovery, but to rapidly classify behavior, validate execution staging, and assess anti-analysis intent under realistic analyst constraints. Analysis was intentionally stopped once Loader characteristics were confirmed, Dynamic capability expansion was observed, Anti-analysis behavior materially interfered with debugging. Deeper reverse engineering (patching, dumping, or bypassing execution guards) was considered out of scope to reflect real-world prioritization decisions. Conclusions are based on observable behavior, not exhaustive reconstruction.
 
 ---

@@ -369,4 +369,4 @@ While no final payload execution was observed, the combination of these behavior
 
 This analysis documents a time-boxed static and dynamic triage of a suspected SmokeLoader-style loader. Static analysis established that the binary is a compact, native x86 executable with high-entropy `.text` content and non-trivial built-in capability. Dynamic analysis demonstrated runtime staging behavior, dynamic API resolution, and deliberate resistance to interactive debugging.
 
-The investigation was intentionally halted once loader characteristics and anti-analysis intent were confirmed. Full payload recovery or execution stabilization would require bypassing execution guards and exception-driven flow, which was considered out of scope to reflect realistic analyst prioritization in a triage context.
+The investigation was intentionally halted once loader characteristics and anti-analysis intent were confirmed. Full payload recovery or execution stabilization would require bypassing execution guards and exception-driven flow, which was considered out of scope to reflect realistic analyst prioritization.

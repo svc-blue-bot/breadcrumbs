@@ -30,11 +30,13 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 16/12/2025 [Hunting Data Exfiltration in Microsoft Sentinel & Defender](https://svc-blue-bot.github.io/breadcrumbs/hunting-data-exfil-sentinel-defender)
 
-### General Articles
+### Cybersecurity Articles
 
 -> 09/12/2025 [Hunting C2 Activity In Memory](https://svc-blue-bot.github.io/breadcrumbs/hunting-c2-in-memory)
 
 -> 09/12/2025 [Outcomes Write the Report. Decisions Shape the Craft.](https://svc-blue-bot.github.io/breadcrumbs/Outcomes-Write-the-Report)
+
+-> 26/12/2025 [Corporate Script Kiddies](https://svc-blue-bot.github.io/corporate-script-kiddies)
 
 ---
 

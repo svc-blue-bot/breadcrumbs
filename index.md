@@ -36,7 +36,7 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 09/12/2025 [Outcomes Write the Report. Decisions Shape the Craft.](https://svc-blue-bot.github.io/breadcrumbs/Outcomes-Write-the-Report)
 
--> 26/12/2025 [Corporate Script Kiddies](https://svc-blue-bot.github.io/corporate-script-kiddies)
+-> 26/12/2025 [Corporate Script Kiddies](https://svc-blue-bot.github.io/breadcrumbs/corporate-script-kiddies)
 
 ---
 

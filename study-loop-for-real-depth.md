@@ -17,7 +17,7 @@ Memorization can be useful for:
 
 But deep competence requires being able to:
 - explain a concept simply
-- spot patterns and anomalies
+- spot patterns and anomalies, but also being able to understand "why" they're anomalies
 - reason about trade-offs
 - diagnose failures
 - apply knowledge in new contexts

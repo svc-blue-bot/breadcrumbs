@@ -170,10 +170,10 @@ That keeps the learning in your brain while still getting high-quality feedback.
 
 
 Copy/paste template (use for every topic)
-Topic: 
 1) Capture (raw notes)
+Topic/Concept/Section:
 
-2) Condense (thinking notes)
+3) Condense (thinking notes)
 Core Idea: 
 
 Why it matters: 

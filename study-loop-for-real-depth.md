@@ -173,7 +173,6 @@ Copy/paste template (use for every topic)
 Topic: 
 1) Capture (raw notes)
 
-
 2) Condense (thinking notes)
 Core Idea: 
 

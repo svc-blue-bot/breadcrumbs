@@ -83,7 +83,8 @@ I usually write 6 with a mix like:
 - Failure mode: If it breaks/misconfigures, what symptoms would you expect?
 - Scenario: Given a short scenario, what’s your best hypothesis and why?
 - Decision/trade-off: What choice would you make in a real situation and what’s the risk?
-- Rule: avoid having all your questions that can be answered by copying a line from your notes. If a question feels “too easy,” it’s probably testing recognition, not understanding.
+
+Rule: avoid having all your questions that can be answered by copying a line from your notes. If a question feels “too easy,” it’s probably testing recognition, not understanding.
 
 ---
 
@@ -171,9 +172,10 @@ That keeps the learning in your brain while still getting high-quality feedback.
 
 Copy/paste template (use for every topic)
 1) Capture (raw notes)
+
 Topic/Concept/Section:
 
-3) Condense (thinking notes)
+2) Condense (thinking notes)
 Core Idea: 
 
 Why it matters: 

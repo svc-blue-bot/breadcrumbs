@@ -4,9 +4,10 @@ title: Breadcrumbs
 ---
 
 Welcome to **breadcrumbs.** 
-This a collection of small, reproducible DFIR practice experiments, quickstart guides, cheatsheets, and writeups I have created.  
 
-I.e. I break things, go hunting for the evidence, then write about it.
+This is a collection of reproducible SOC/DF/IR practice experiments, investigations, quickstart guides, cheatsheets, and writeups I’ve created.
+
+Some posts are hands-on labs: I break things, hunt for the evidence, and reconstruct what happened. Others are more general notes on investigation and incident response, how the work actually plays out, and where common habits help or hurt.
 
 ---
 

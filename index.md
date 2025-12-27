@@ -19,6 +19,8 @@ Some posts are hands-on labs: I break things, hunt for the evidence, and reconst
 
 -> 17/12/2025 [SmokeLoader Style Loader Analysis](https://svc-blue-bot.github.io/breadcrumbs/SmokeLoader)
 
+ -> ??/??/???? [Memory-Only “Injected Beacon” Investigation (Coming Soon - In Progress) 
+
 ### Tips/References/Cheat Sheets/Quickstart Guides
 
 -> 02/12/2025 [DFIR Lab: Quickstart Sheet](https://svc-blue-bot.github.io/breadcrumbs/DFIRLab-quickstart-sheet)

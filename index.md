@@ -41,6 +41,8 @@ I.e. I break things, go hunting for the evidence, then write about it.
 
 -> 26/12/2025 [Corporate Script Kiddies](https://svc-blue-bot.github.io/breadcrumbs/corporate-script-kiddies)
 
+-> 27/12/2025 [The SOC IOC Trap in Big Incidents (Like Ransomware)](https://svc-blue-bot.github.io/breadcrumbs/the-soc-ioc-trap)
+
 ---
 
 This is all lab work on test systems only; nothing here is advice for breaking the law.

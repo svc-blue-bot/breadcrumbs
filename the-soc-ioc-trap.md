@@ -113,7 +113,7 @@ That’s when IOC work starts becoming lethal instead of time-consuming.
 
 ## The habit I’ve built
 
-I still have partly have the IOC-chasing brain. I don’t think you ever fully lose it if you came up in a SOC. There’s a part of you that wants to chase every string until it’s tied neatly to the end of the incident.
+I still partly have the IOC-chasing brain. I don’t think you ever fully lose it if you came up in a SOC. There’s a part of you that wants to chase every string until it’s tied neatly to the end of the incident.
 
 But now I try to hold a different rule closer:
 

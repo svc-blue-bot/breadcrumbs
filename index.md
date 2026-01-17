@@ -37,6 +37,8 @@ Some posts are hands-on labs: I break things, hunt for the evidence, and reconst
 
 ### Cybersecurity Articles
 
+-> 17/01/2026 [Preperation Of Thought](https://svc-blue-bot.github.io/breadcrumbs/preperation-of-thought)
+
 -> 27/12/2025 [The SOC IOC Trap in Big Incidents (Like Ransomware)](https://svc-blue-bot.github.io/breadcrumbs/the-soc-ioc-trap)
 
 -> 26/12/2025 [Corporate Script Kiddies](https://svc-blue-bot.github.io/breadcrumbs/corporate-script-kiddies)

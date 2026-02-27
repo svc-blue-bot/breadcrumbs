@@ -260,7 +260,58 @@ Note: No real injection performed.
 
 # 9. Script Used
 
-# (Insert your finalized PowerShell script here)
+```
+Write-Host "Starting pulse"
+
+# Beacon Config
+$config = @"
+C2_SERVER=127.0.0.1
+C2_PORT=4444
+INTERVAL=5
+NOTE=TRAINING_ARTIFACT_ONLY
+"@
+
+#XOR Key
+$key = 0xAA
+
+#Convert to bytes
+$bytes = [System.Text.Encoding]::UTF8.GetBytes($config)
+
+# XOR encode
+for ($i = 0; $i -lt $bytes.Length; $i++) {
+    $bytes[$i] = $bytes[$i] -bxor $key
+}
+
+Write-Host "Pulse hidden"
+
+# Allocate unmanaged memory
+$size = $bytes.Length
+$ptr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($size)
+[System.Runtime.InteropServices.Marshal]::Copy($bytes, 0, $ptr, $size)
+
+Write-Host "Hidden pulse stored at $ptr"
+
+# Spawn notepad 
+$notepad = Start-Process notepad.exe -PassThru
+Write-Host "[*] Spawned notepad.exe PID: $($notepad.Id)"
+
+# Pulse connect loop
+$interval = 5
+
+while ($true) {
+    try {
+        $client = New-Object System.Net.Sockets.TcpClient
+        $client.Connect("127.0.0.1", 4444)
+        Write-Host "Pulse connect"
+        $client.Close()
+    }
+    catch {
+        Write-Host "No reciever"
+    }
+
+    Start-Sleep -Seconds $interval
+}
+```
 
 ---
 

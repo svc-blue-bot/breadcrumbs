@@ -2,6 +2,8 @@
 layout: default
 title: Hunting C2 Activity In Memory
 ---
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
 
 # Hunting C2 Activity in Memory
 

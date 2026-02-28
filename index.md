@@ -17,7 +17,7 @@ Some posts are hands-on labs: I break things, hunt for the evidence, and reconst
 
 -> ??/??/???? Claude Code Execution Artefacts (Coming Soon - In Progress)
 
--> ??/??/???? Memory-Only “Injected Beacon” Investigation (Coming Soon - In Progress)
+-> 28/02/2026 [In-Memory PowerShell Beacon](https://svc-blue-bot.github.io/breadcrumbs/In-Memory PowerShell Beacon)
 
 -> 17/12/2025 [SmokeLoader Style Loader Analysis](https://svc-blue-bot.github.io/breadcrumbs/SmokeLoader)
 

@@ -5,7 +5,7 @@
 
 This lab demonstrates how a memory-resident PowerShell script can generate forensic artefacts that are recoverable through memory acquisition and analysis.
 
-The simulation:
+**The simulation:**
 - Creates an encoded configuration in memory
 - Allocates unmanaged memory
 - Spawns a legitimate Windows process (notepad.exe)
@@ -115,23 +115,23 @@ while ($true) {
 
 This lab simulates a memory-resident beacon-style script:
 
-### Stage 1 – Configuration Handling
+### Stage 1 Configuration Handling
 - A fake configuration string is created.
 - The string is converted to bytes.
 - A static XOR key (0xAA) encodes the configuration.
 - The encoded byte array is copied into unmanaged memory.
 
-### Stage 2 – Process Activity
+### Stage 2 Process Activity
 - notepad.exe is spawned.
 - Parent-child process relationship established.
 
-### Stage 3 – Network Behaviour
+### Stage 3 Network Behaviour
 - A loop repeatedly attempts connection to:
     - 127.0.0.1:4444
 - If no listener is present, connection fails gracefully.
 - Loop continues every 5 seconds.
 
-### Stage 4 – Persistence in Memory Only
+### Stage 4 Persistence in Memory Only
 - No registry keys created.
 - No scheduled tasks created.
 - No files written to disk.
@@ -237,6 +237,7 @@ Commands:
 `strings powershell.dump`
 
 Evidence:
+
 <img width="648" height="665" alt="image" src="https://github.com/user-attachments/assets/0f90c7bc-cafc-451b-bb34-1ae56db8ede8" />
 
 

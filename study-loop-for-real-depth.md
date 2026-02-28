@@ -1,3 +1,6 @@
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
+
 # My “SQ4R-ish” Study Loop for Real Depth (Not Just Exam Memory)
 
 Most people study in a way that creates familiarity, not ability. You reread, rewatch, highlight, and it all feels “known”… but then you’re asked to explain it, apply it, investigate an issue, or make a decision under pressure and it falls apart.

@@ -1,3 +1,5 @@
+[Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
 # Simulated PowerShell Beacon (Runtime Memory Analysis)
 
 ---

@@ -1,7 +1,7 @@
 # Simulated In-Memory PowerShell Beacon Artifact Lab
 
 ---
-# 1. Executive Summary (Non-technical)
+# 1. Summary
 
 This lab demonstrates how a memory-resident PowerShell script can generate forensic artefacts that are recoverable through memory acquisition and analysis.
 
@@ -14,8 +14,7 @@ The simulation:
 - Attempts repeated local network connections
 - Remains active to allow live memory capture
 
-No external communication occurs.  
-All activity remains inside an isolated virtual machine.
+No external communication occurs and all activity remains inside an isolated virtual machine.
 
 After execution, a full physical memory image is captured and analyzed using memory forensic tools to identify:
 - Process artefacts

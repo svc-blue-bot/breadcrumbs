@@ -1,3 +1,6 @@
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
+
 # The SOC IOC Trap in Big Incidents (Like Ransomware)
 
 SOC work trains you into a very specific kind of integrity. You see a thing. You don’t wave your hands. You don’t guess. You don’t let it sit there unexplained. You chase it until you can say what it is, how it got there, what else it touched, and whether it matters.

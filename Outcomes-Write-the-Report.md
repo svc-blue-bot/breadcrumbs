@@ -1,4 +1,4 @@
-[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+[Home](https://svc-blue-bot.github.io/breadcrumbs/)
 
 # Outcomes write the report. Decisions shape the craft.
 

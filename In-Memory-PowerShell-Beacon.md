@@ -275,14 +275,17 @@ Several expected findings provided important forensic learning points:
 
 - Encoding did not remove plaintext artefacts.
 - Although the configuration was XOR-encoded and copied into unmanaged memory, the original $config string was never overwritten or zeroed. As a result, the plaintext configuration remained visible in process memory.
-Data transformation alone does not eliminate artefacts unless the original data is explicitly destroyed.
+
+*Data transformation alone does not eliminate artefacts unless the original data is explicitly destroyed.*
 
 - TCP artefacts were timing-dependent.
 - No socket entries for 127.0.0.1:4444 were observed at acquisition time. Given that connections failed immediately and the script slept between attempts, the TCP objects likely existed only briefly.
-Volatile network artefacts may not persist long enough to be captured.
+
+*Volatile network artefacts may not persist long enough to be captured.*
 
 - Unmanaged allocations were not inherently distinguishable.
 - Private PAGE_READWRITE regions were consistent with normal heap behaviour. Without direct content validation, structural VAD analysis alone does not indicate malicious activity.
-Context and behavioural correlation are essential.
+
+*Context and behavioural correlation are essential.*
 
 The findings illustrate how memory evidence must be interpreted carefully, with attention to timing, execution context, and implementation details.

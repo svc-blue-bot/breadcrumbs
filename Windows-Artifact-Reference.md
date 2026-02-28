@@ -2,6 +2,8 @@
 layout: default
 title: Windows Artifact Reference
 ---
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
 
 # Windows Artifact Reference 
 Summary of what you get, what to be careful about, and when to use each artifact.

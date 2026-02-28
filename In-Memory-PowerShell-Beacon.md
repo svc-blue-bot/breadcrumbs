@@ -189,7 +189,7 @@ The command-line arguments confirm that:
 - The script beacon.ps1 located on the user’s desktop was executed directly.
 - This artefact provides strong evidence of script execution and execution context.
 
-Command-line artefacts are often more reliable indicators of execution intent than memory structure alone. Even in the absence of network artefacts or persistence, command-line reconstruction can clearly demonstrate how a script was invoked.
+*Command-line artefacts are often more reliable indicators of execution intent than memory structure alone. Even in the absence of network artefacts or persistence, command-line reconstruction can clearly demonstrate how a script was invoked.*
 
 ---
 
@@ -223,8 +223,6 @@ Confirms child process was launched by PowerShell, that was launched by explorer
 **Interpretation:**
 The PowerShell script attempts a connection every 5 seconds. When no listener is present on port 4444, Windows immediately rejects the connection attempt. The TcpClient object is then closed almost instantly. As a result the TCP socket exists only for a very short duration, meaning the connection object may be destroyed before memory acquisition occurs, or if the memory capture happened during the script’s sleep interval, no active socket object would be present in memory.
 
-Volatile artefacts are timing-dependent. Their absence in memory does not necessarily negate execution.
-
 ---
 
 ## 4.5 Unmanaged Memory Allocation (Structural Observation)
@@ -241,8 +239,6 @@ Volatile artefacts are timing-dependent. Their absence in memory does not necess
 Private read/write regions are consistent with normal heap allocations within a running process.
 
 In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. However, such allocations are indistinguishable from standard heap memory without direct content validation. 
-
-Structural VAD analysis alone does not prove malicious behaviour: context is necessary.  
 
 ---
 
@@ -261,9 +257,6 @@ Structural VAD analysis alone does not prove malicious behaviour: context is nec
 
 **Interpretation:**
 Although the configuration was XOR-encoded and copied into unmanaged memory, the original `$config` string variable was never removed, overwritten, or zeroed. As a result the plaintext configuration remains present in managed memory, the script content remains resident in process memory during execution, and encoding created an additional transformed copy but did not eliminate the original artefact.
-
-
-Encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed. The visibility of the configuration is consistent with normal PowerShell execution behaviour, rather than the stealthy in-memory staging you'd typically see in the wild.
 
 ---
 

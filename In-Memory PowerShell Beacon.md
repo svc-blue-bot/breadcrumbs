@@ -1,11 +1,11 @@
-# Simulated In-Memory PowerShell Beacon Artifact Lab
+<img width="1497" height="20" alt="image" src="https://github.com/user-attachments/assets/956a7ab0-2001-4247-9186-0d75c238db52" /># Simulated In-Memory PowerShell Beacon Artifact Lab
 
 ---
 # 1. Executive Summary (Non-technical)
 
-This project demonstrates how a memory-resident PowerShell script can generate forensic artefacts that are recoverable through memory acquisition and analysis.
+This lab demonstrates how a memory-resident PowerShell script can generate forensic artefacts that are recoverable through memory acquisition and analysis.
 
-Unlike traditional malware simulations that rely heavily on disk artefacts and registry persistence, this lab focuses on volatile artefacts that exist only while a process is running.
+This lab focuses on volatile artefacts that exist only while a process is running.
 
 The simulation:
 - Creates an encoded configuration in memory
@@ -17,15 +17,12 @@ The simulation:
 No external communication occurs.  
 All activity remains inside an isolated virtual machine.
 
-After execution, a full physical memory image is captured and analyzed using industry-standard memory forensic tools to identify:
-
+After execution, a full physical memory image is captured and analyzed using memory forensic tools to identify:
 - Process artefacts
 - Heap allocations
 - Network socket objects
 - Parent/child relationships
 - Encoded configuration remnants in memory
-
-This lab demonstrates how volatile evidence can be reconstructed even when no traditional malware is written to disk.
 
 ---
 
@@ -33,9 +30,8 @@ This lab demonstrates how volatile evidence can be reconstructed even when no tr
 
 ## 2.1 Environment
 
-Host: Windows system running VMware
 Guest VM (Victim System): Windows 10 x64
-Analysis VM: Ubuntu Linux
+Analysis VM: Custom FlareVM
 Hypervisor: VMware Workstation
 Network: Host-only (no internet connectivity)
 Execution Flow:
@@ -57,208 +53,7 @@ Execution Flow:
 |Hashing|sha256sum|
 |VM Platform|VMware Workstation|
 
----
-
-# 3. Simulation Overview
-
-This lab simulates a memory-resident beacon-style script:
-
-### Stage 1 – Configuration Handling
-
-- A fake configuration string is created.
-- The string is converted to bytes.
-- A static XOR key (0xAA) encodes the configuration.
-- The encoded byte array is copied into unmanaged memory.
-### Stage 2 – Process Activity
-
-- notepad.exe is spawned.
-- Parent-child process relationship established.
-
-### Stage 3 – Network Behaviour
-
-- A loop repeatedly attempts connection to:
-    - 127.0.0.1:4444
-- If no listener is present, connection fails gracefully.
-- Loop continues every 5 seconds.
-
-### Stage 4 – Persistence in Memory Only
-
-- No registry keys created.
-- No scheduled tasks created.
-- No files written to disk.
-- Artefacts remain purely volatile.
-
----
-
-# 4. Timeline of Events (UTC Example)
-
-10:14:22 – PowerShell script executed manually.
-10:14:23 – Configuration converted to byte array.
-10:14:23 – XOR encoding loop completed.
-10:14:23 – Unmanaged memory allocated and populated.
-10:14:24 – notepad.exe spawned as child process.
-10:14:25 – First TCP connection attempt to 127.0.0.1:4444.
-10:14:30 – Second TCP attempt.
-10:15:00 – Memory acquisition initiated.
-10:17:40 – Memory image saved as memdump.raw.
-
----
-
-# 5. Memory Forensic Findings
-
-## 5.1 Process Enumeration
-
-Command:
-vol -f memdump.raw windows.pslist
-Evidence:
-- powershell.exe present
-- notepad.exe present
-- Parent-child relationship visible
-
-Interpretation:
-Confirms script execution and spawned process behaviour.
-
----
-
-## 5.2 Process Tree
-
-vol -f memdump.raw windows.pstree
-
-Evidence:
-powershell.exe  
-└── notepad.exe
-
-Interpretation:
-Confirms child process was launched by PowerShell.
-
----
-
-## 5.3 Network Artefacts
-
-vol -f memdump.raw windows.netscan
-
-Evidence:
-- TCP entries referencing 127.0.0.1:4444
-- State likely SYN_SENT or CLOSED
-
-Interpretation:
-Confirms repeated connection attempts from the running process.
-
----
-
-## 5.4 Encoded Configuration in Memory
-
-Strings search:
-strings memdump.raw | grep C2_SERVER
-
-If only encoded copy exists:
-- Plaintext may not appear.
-
-If decoded anywhere:
-- Plaintext visible in memory.
-
-To recover encoded blob:
-- Dump powershell.exe memory region.
-- Extract raw bytes.
-- XOR with 0xAA to reconstruct original config.
-
-Interpretation:
-Demonstrates recovery of staged configuration from memory.
-
----
-
-## 5.5 Unmanaged Memory Allocation
-
-Command:
-vol -f memdump.raw windows.vadinfo --pid powershell PID
-
-Evidence
-- Private memory regions
-- PAGE_READWRITE protection
-- Size matching encoded buffer
-
-Interpretation:
-Indicates unmanaged memory allocation via Marshal.AllocHGlobal.
-
----
-
-## 5.6 No Disk Artefacts
-
-Verification:
-- No new files in filesystem
-- No scheduled tasks
-- No registry modifications
-
-Interpretation:
-All behaviour is volatile.
-
----
-
-# 6. Indicators of Compromise (Simulation Only)
-
-## 6.1 Memory Indicators
-
-|Indicator|Description|
-|---|---|
-|Encoded blob|XOR-encoded config bytes|
-|Powershell PID|Long-running process|
-|notepad.exe child|Spawned from PowerShell|
-|TCP 127.0.0.1:4444|Repeated connection attempts|
-|Unmanaged allocation|Private heap region|
-
----
-
-## 6.2 Network Indicators (Loopback Only)
-
-|Type|Value|
-|---|---|
-|IP|127.0.0.1|
-|Port|4444|
-|Protocol|TCP|
-
-No external C2.
-
----
-
-# 7. TTP Simulation
-
-## 7.1 Execution
-
-- Manual script execution via PowerShell console.
-## 7.2 In-Memory Configuration Staging
-
-- Encoded config stored in heap.
-- XOR obfuscation used.
-
-## 7.3 Process Creation
-
-- notepad.exe spawned via Start-Process.
-
-## 7.4 Command-and-Control Simulation
-
-- Repeated TCP connect attempts.
-- Loopback only.
-
-## 7.5 Persistence
-
-- None (intentionally omitted).
-
----
-
-# 8. MITRE ATT&CK Mapping (Simulation Context)
-
-|MITRE ID|Technique|Evidence|
-|---|---|---|
-|T1059.001|PowerShell|Script execution|
-|T1027|Obfuscated/Encrypted Config|XOR encoding|
-|T1055 (conceptual)|Process Creation|notepad child|
-|T1071|Application Layer Protocol|TCP connect attempts|
-
-Note: No real injection performed.
-
----
-
-# 9. Script Used
+## 2.3 Script Used
 
 ```
 Write-Host "Starting pulse"
@@ -268,7 +63,7 @@ $config = @"
 C2_SERVER=127.0.0.1
 C2_PORT=4444
 INTERVAL=5
-NOTE=TRAINING_ARTIFACT_ONLY
+NOTE=TRAINING_ARTEFACT_ONLY
 "@
 
 #XOR Key
@@ -293,7 +88,7 @@ Write-Host "Hidden pulse stored at $ptr"
 
 # Spawn notepad 
 $notepad = Start-Process notepad.exe -PassThru
-Write-Host "[*] Spawned notepad.exe PID: $($notepad.Id)"
+Write-Host "Spawned notepad.exe PID: $($notepad.Id)"
 
 # Pulse connect loop
 $interval = 5
@@ -315,19 +110,147 @@ while ($true) {
 
 ---
 
-# 10. Conclusion
+# 3. Simulation Overview
 
-This lab demonstrates how even a simple PowerShell script can generate rich volatile artefacts observable through memory forensics.
+This lab simulates a memory-resident beacon-style script:
 
-Key learning outcomes:
-- Difference between managed and unmanaged memory
-- Identification of process relationships
-- Recovery of encoded configuration from memory
-- Correlation of socket artefacts with running processes
-- Importance of capturing memory while process is active
+### Stage 1 – Configuration Handling
+- A fake configuration string is created.
+- The string is converted to bytes.
+- A static XOR key (0xAA) encodes the configuration.
+- The encoded byte array is copied into unmanaged memory.
 
-Unlike disk-based malware simulations, this exercise highlights the importance of volatile evidence in incident response.
+### Stage 2 – Process Activity
+- notepad.exe is spawned.
+- Parent-child process relationship established.
 
-It reinforces that:
+### Stage 3 – Network Behaviour
+- A loop repeatedly attempts connection to:
+    - 127.0.0.1:4444
+- If no listener is present, connection fails gracefully.
+- Loop continues every 5 seconds.
 
-Even without persistence mechanisms or file-based payloads, memory analysis alone can reconstruct execution behaviour and intent.
+### Stage 4 – Persistence in Memory Only
+- No registry keys created.
+- No scheduled tasks created.
+- No files written to disk.
+- Artefacts remain purely volatile.
+
+---
+
+# 4. Memory Forensic Findings
+
+## 4.1 Process Enumeration
+
+Command:
+vol -f memdump.raw windows.pslist
+Evidence:
+<img width="1280" height="84" alt="image" src="https://github.com/user-attachments/assets/ee311633-9c2e-4b32-957b-ca0c099561bf" />
+
+- powershell.exe present
+- notepad.exe present
+- Parent-child relationship visible (PID/PPID)
+
+Interpretation:
+Confirms script execution and spawned process behaviour.
+
+## 4.2 Process Command Line
+
+Command:
+vol -f memdump.raw windows.cmdline
+
+Evidence:
+<img width="1912" height="64" alt="image" src="https://github.com/user-attachments/assets/2a6d6a37-43ac-4e42-af94-3656447fea9f" />
+
+powershell.exe: 
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe "-Command" "if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & 'C:\Users\Lab\Desktop\beacon.ps1'"
+
+Interpretation:
+The command-line arguments confirm that:
+- PowerShell was launched using the -Command parameter.
+- Execution policy was conditionally bypassed at the process scope.
+- The script beacon.ps1 located on the user’s desktop was executed directly.
+- This artefact provides strong evidence of script execution and execution context.
+
+Command-line artefacts are often more reliable indicators of execution intent than memory structure alone. Even in the absence of network artefacts or persistence, command-line reconstruction can clearly demonstrate how a script was invoked.
+
+---
+
+## 4.3 Process Tree
+
+vol -f memdump.raw windows.pstree
+
+Evidence:
+<img width="2504" height="103" alt="image" src="https://github.com/user-attachments/assets/f27c9ba4-3085-4566-b065-1ed920f9973a" />
+
+explorer.exe
+powershell.exe  
+notepad.exe
+
+Interpretation:
+Confirms child process was launched by PowerShell.
+
+---
+
+## 4.4 Network Artefacts
+
+vol -f memdump.raw windows.netscan
+
+Evidence:
+<img width="1285" height="742" alt="image" src="https://github.com/user-attachments/assets/cfea2cb4-edac-47fa-8bc8-30422ce826b4" />
+<img width="982" height="335" alt="image" src="https://github.com/user-attachments/assets/c955e458-56e1-4911-a41b-53563c1f5a28" />
+
+No TCP entries referencing 127.0.0.1:4444 were observed.
+No active or recently closed sockets attributable to powershell.exe were identified at time of capture.
+
+Interpretation:
+The PowerShell script attempts a connection every 5 seconds. When no listener is present on port 4444, Windows immediately rejects the connection attempt. The TcpClient object is then closed almost instantly. As a result the TCP socket exists only for a very short duration, meaning the connection object may be destroyed before memory acquisition occurs, or if the memory capture happened during the script’s sleep interval, no active socket object would be present in memory.
+
+This demonstrates an important DFIR principle:
+Volatile artefacts are timing-dependent. Their absence in memory does not necessarily negate execution.
+
+---
+
+## 4.5 Unmanaged Memory Allocation (Structural Observation)
+
+Command:
+`vol -f memdump.raw windows.vadinfo --pid=PID`
+
+Evidence:
+<img width="1378" height="310" alt="image" src="https://github.com/user-attachments/assets/12791f0c-92e4-4085-9158-adac39dc7b46" />
+
+- Multiple private `PAGE_READWRITE` memory regions present
+- No file-backed mapping associated with these regions
+
+Interpretation:
+
+Private read/write regions are consistent with normal heap allocations within a running process.
+
+In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`.  
+However, such allocations are indistinguishable from standard heap memory without direct content validation, which highlights an important analytical limitation. Structural VAD analysis alone does not prove malicious behaviour: context is necesary.  
+
+---
+
+## 4.6 Script and Configuration Artefacts in Memory
+
+Method: Process memory was dumped and inspected using standard string analysis.
+Commands: 
+`vol -f memdump.raw windows.memmap --pid --dump`
+`strings powershell.dump'
+
+Evidence:
+<img width="648" height="665" alt="image" src="https://github.com/user-attachments/assets/0f90c7bc-cafc-451b-bb34-1ae56db8ede8" />
+
+
+Interpretation:
+Although the configuration was XOR-encoded and copied into unmanaged memory, the original `$config` string variable was never removed, overwritten, or zeroed. As a result the plaintext configuration remains present in managed memory, content remains resident in process memory during execution, and encoding created an additional transformed copy but did not eliminate the original artefact.
+    
+This demonstrates an important forensic principle, encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed.
+
+In this simulation, the visibility of the configuration is consistent with normal PowerShell execution behaviour rather than the stealthy in-memory staging you'd typically see in the wild.
+
+---
+
+# 5. Conclusion
+
+This lab demonstrates how even a simple PowerShell script can generate rich volatile artefacts observable through memory forensics. Unlike disk-based simulations, this highlights the importance of volatile evidence in incident response. It reinforces that even without persistence mechanisms or file-based payloads, memory analysis alone can reconstruct execution behaviour and intent.

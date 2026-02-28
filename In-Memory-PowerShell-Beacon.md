@@ -4,7 +4,7 @@
 
 # 1. Summary
 
-This lab demonstrates how a memory-resident PowerShell script can generate forensic artefacts that are recoverable through memory acquisition and analysis.
+This lab demonstrates how a PowerShell script executing in memory after being launched from disk can generate forensic artefacts that are recoverable through memory acquisition and analysis.
 
 **The simulation:**
 - Creates an encoded configuration in memory

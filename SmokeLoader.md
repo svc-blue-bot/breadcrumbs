@@ -1,3 +1,5 @@
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
 # SmokeLoader Style Loader Analysis
 
 Sample: `35bf9dfd223e02da2ee3d57ec493156787a3c2cecb8b655a583985a2f14cc6e3`  

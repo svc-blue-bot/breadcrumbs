@@ -1,4 +1,4 @@
-<img width="1497" height="20" alt="image" src="https://github.com/user-attachments/assets/956a7ab0-2001-4247-9186-0d75c238db52" /># Simulated In-Memory PowerShell Beacon Artifact Lab
+# Simulated In-Memory PowerShell Beacon Artifact Lab
 
 ---
 # 1. Executive Summary (Non-technical)

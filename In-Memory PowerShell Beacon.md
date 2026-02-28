@@ -222,8 +222,7 @@ This demonstrates an important DFIR principle, volatile artefacts are timing-dep
 **Interpretation:**
 Private read/write regions are consistent with normal heap allocations within a running process.
 
-In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`.  
-However, such allocations are indistinguishable from standard heap memory without direct content validation, which highlights an important analytical limitation. Structural VAD analysis alone does not prove malicious behaviour: context is necesary.  
+In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. However, such allocations are indistinguishable from standard heap memory without direct content validation, which highlights an important analytical limitation. Structural VAD analysis alone does not prove malicious behaviour: context is necesary.  
 
 ---
 

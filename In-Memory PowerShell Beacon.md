@@ -1,6 +1,7 @@
 # Simulated In-Memory PowerShell Beacon
 
 ---
+
 # 1. Summary
 
 This lab demonstrates how a memory-resident PowerShell script can generate forensic artefacts that are recoverable through memory acquisition and analysis.

@@ -230,6 +230,7 @@ However, such allocations are indistinguishable from standard heap memory withou
 ## 4.6 Script and Configuration Artefacts in Memory
 
 Method: Process memory was dumped and inspected using standard string analysis.
+
 Commands: 
 `vol -f memdump.raw windows.memmap --pid --dump`
 `strings powershell.dump`

@@ -50,7 +50,7 @@ After execution, a full physical memory image is captured and analyzed using mem
 |---|---|
 |Memory Acquisition|WinPmem|
 |Memory Analysis|Volatility 3|
-|Strings Analysis|strings (Linux utility)|
+|Strings Analysis|strings|
 |Hashing|sha256sum|
 |VM Platform|VMware Workstation|
 

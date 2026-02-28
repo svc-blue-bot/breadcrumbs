@@ -211,7 +211,7 @@ This demonstrates an important DFIR principle, volatile artefacts are timing-dep
 
 ## 4.5 Unmanaged Memory Allocation (Structural Observation)
 
-**Command: **`vol -f memdump.raw windows.vadinfo --pid=PID`
+**Command:** `vol -f memdump.raw windows.vadinfo --pid=PID`
 
 **Evidence:**
 <img width="1378" height="310" alt="image" src="https://github.com/user-attachments/assets/12791f0c-92e4-4085-9158-adac39dc7b46" />
@@ -229,18 +229,20 @@ However, such allocations are indistinguishable from standard heap memory withou
 
 ## 4.6 Script and Configuration Artefacts in Memory
 
-**Method: **Process memory was dumped and inspected using string analysis.
+**Method:** Process memory was dumped and inspected using string analysis.
 
 **Commands:**
 - `vol -f memdump.raw windows.memmap --pid --dump`
 - `strings powershell.dump`
 
 **Evidence:**
+
 <img width="648" height="665" alt="image" src="https://github.com/user-attachments/assets/0f90c7bc-cafc-451b-bb34-1ae56db8ede8" />
 
 
 **Interpretation:**
 Although the configuration was XOR-encoded and copied into unmanaged memory, the original `$config` string variable was never removed, overwritten, or zeroed. As a result the plaintext configuration remains present in managed memory, content remains resident in process memory during execution, and encoding created an additional transformed copy but did not eliminate the original artefact.
+
     
 This demonstrates an important forensic principle, encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed.
 

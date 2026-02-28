@@ -19,7 +19,7 @@ After execution, a full physical memory image is captured and analyzed using mem
 - Heap allocations
 - Network socket objects
 - Parent/child relationships
-- Encoded configuration remnants in memory
+- Script and configuration artefacts recoverable from process memory
 
 ---
 
@@ -53,6 +53,8 @@ After execution, a full physical memory image is captured and analyzed using mem
 |Strings Analysis|strings|
 |Hashing|sha256sum|
 |VM Platform|VMware Workstation|
+
+---
 
 ## 2.3 Script Used
 
@@ -108,6 +110,18 @@ while ($true) {
     Start-Sleep -Seconds $interval
 }
 ```
+---
+
+## 2.4 Analytic Scope
+
+This lab represents controlled script execution in a user context.
+
+It does not simulate:
+- Code injection
+- Reflective loading
+- Memory-only payload staging
+- Persistence mechanisms
+- Anti-forensic techniques
 
 ---
 
@@ -187,7 +201,7 @@ Command-line artefacts are often more reliable indicators of execution intent th
 - notepad.exe
 
 **Interpretation:**
-Confirms child process was launched by PowerShell, that was launched by explorer, which strongly suggest user interaction.
+Confirms child process was launched by PowerShell, that was launched by explorer, which strongly suggests execution within a user session context.
 
 ---
 
@@ -222,7 +236,7 @@ This demonstrates an important DFIR principle, volatile artefacts are timing-dep
 **Interpretation:**
 Private read/write regions are consistent with normal heap allocations within a running process.
 
-In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. However, such allocations are indistinguishable from standard heap memory without direct content validation, which highlights an important analytical limitation. Structural VAD analysis alone does not prove malicious behaviour: context is necesary.  
+In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. However, such allocations are indistinguishable from standard heap memory without direct content validation, which highlights an important analytical limitation. Structural VAD analysis alone does not prove malicious behaviour: context is necessary.  
 
 ---
 
@@ -240,7 +254,7 @@ In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. Howeve
 
 
 **Interpretation:**
-Although the configuration was XOR-encoded and copied into unmanaged memory, the original `$config` string variable was never removed, overwritten, or zeroed. As a result the plaintext configuration remains present in managed memory, content remains resident in process memory during execution, and encoding created an additional transformed copy but did not eliminate the original artefact.
+Although the configuration was XOR-encoded and copied into unmanaged memory, the original `$config` string variable was never removed, overwritten, or zeroed. As a result the plaintext configuration remains present in managed memory, the script content remains resident in process memory during execution, and encoding created an additional transformed copy but did not eliminate the original artefact.
 
     
 This demonstrates an important forensic principle, encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed.

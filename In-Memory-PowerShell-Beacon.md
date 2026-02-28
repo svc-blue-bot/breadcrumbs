@@ -111,6 +111,7 @@ while ($true) {
     Start-Sleep -Seconds $interval
 }
 ```
+
 ---
 
 ## 2.4 Analytic Scope
@@ -169,6 +170,8 @@ Command: `vol -f memdump.raw windows.pslist`
 
 **Interpretation:**
 Confirms script execution and spawned process behaviour.
+
+---
 
 ## 4.2 Process Command Line
 

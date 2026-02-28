@@ -259,7 +259,7 @@ Although the configuration was XOR-encoded and copied into unmanaged memory, the
 
 ---
 
-# 5. Conclusion & Analytical Observations
+# 5. Conclusion & Analytical Observations 
 
 This lab demonstrates how standard PowerShell execution produces recoverable volatile artefacts within process memory. Through memory acquisition and analysis, process hierarchy, command-line invocation, and runtime behaviour were reconstructed while the system remained active.
 

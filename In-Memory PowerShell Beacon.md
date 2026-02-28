@@ -231,9 +231,8 @@ However, such allocations are indistinguishable from standard heap memory withou
 
 Method: Process memory was dumped and inspected using string analysis.
 
-Commands: 
+Commands:
 `vol -f memdump.raw windows.memmap --pid --dump`
-
 `strings powershell.dump`
 
 Evidence:

@@ -246,7 +246,7 @@ Although the configuration was XOR-encoded and copied into unmanaged memory, the
     
 This demonstrates an important forensic principle, encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed.
 
-In this simulation, the visibility of the configuration is consistent with normal PowerShell execution behaviour rather than the stealthy in-memory staging you'd typically see in the wild.
+The visibility of the configuration is consistent with normal PowerShell execution behaviour rather than the stealthy in-memory staging you'd typically see in the wild.
 
 ---
 

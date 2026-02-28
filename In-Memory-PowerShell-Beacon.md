@@ -1,4 +1,4 @@
-# Simulated In-Memory PowerShell Beacon
+# Simulated PowerShell Beacon (Runtime Memory Analysis)
 
 ---
 

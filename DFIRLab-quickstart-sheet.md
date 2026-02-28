@@ -1,3 +1,6 @@
+[Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
+
 # DFIR Lab: Quickstart Sheet
 This is a DFIR lab quickstart reference sheet. It’s not meant to be a complete guide or a full cheat sheet, but a practical launchpad if you want to jump straight into hands-on labs without getting bogged down in theory.
 

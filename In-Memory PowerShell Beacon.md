@@ -1,4 +1,4 @@
-# Simulated In-Memory PowerShell Beacon Artifact Lab
+# Simulated In-Memory PowerShell Beacon
 
 ---
 # 1. Summary

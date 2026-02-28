@@ -254,7 +254,7 @@ In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. Howeve
 
 **Evidence:**
 
-<img width="648" height="665" alt="image" src="https://github.com/user-attachments/assets/0f90c7bc-cafc-451b-bb34-1ae56db8ede8" />
+<img width="677" height="803" alt="image" src="https://github.com/user-attachments/assets/96f3deb9-407d-4152-b467-03e7dd3f32b0" />
 
 
 **Interpretation:**

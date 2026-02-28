@@ -189,8 +189,8 @@ The command-line arguments confirm that:
 - The script beacon.ps1 located on the user’s desktop was executed directly.
 - This artefact provides strong evidence of script execution and execution context.
 
-Command-line artefacts are often more reliable indicators of execution intent than memory structure alone. Even in the absence of network artefacts or persistence, command-line reconstruction can clearly demonstrate how a script was invoked.
-
+_Command-line artefacts are often more reliable indicators of execution intent than memory structure alone. Even in the absence of network artefacts or persistence, command-line reconstruction can clearly demonstrate how a script was invoked.
+_
 ---
 
 ## 4.3 Process Tree
@@ -223,8 +223,8 @@ Confirms child process was launched by PowerShell, that was launched by explorer
 **Interpretation:**
 The PowerShell script attempts a connection every 5 seconds. When no listener is present on port 4444, Windows immediately rejects the connection attempt. The TcpClient object is then closed almost instantly. As a result the TCP socket exists only for a very short duration, meaning the connection object may be destroyed before memory acquisition occurs, or if the memory capture happened during the script’s sleep interval, no active socket object would be present in memory.
 
-This demonstrates an important DFIR principle, volatile artefacts are timing-dependent. Their absence in memory does not necessarily negate execution.
-
+_Volatile artefacts are timing-dependent. Their absence in memory does not necessarily negate execution.
+_
 ---
 
 ## 4.5 Unmanaged Memory Allocation (Structural Observation)
@@ -240,8 +240,10 @@ This demonstrates an important DFIR principle, volatile artefacts are timing-dep
 **Interpretation:**
 Private read/write regions are consistent with normal heap allocations within a running process.
 
-In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. However, such allocations are indistinguishable from standard heap memory without direct content validation, which highlights an important analytical limitation. Structural VAD analysis alone does not prove malicious behaviour: context is necessary.  
+In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. However, such allocations are indistinguishable from standard heap memory without direct content validation. 
 
+_Structural VAD analysis alone does not prove malicious behaviour: context is necessary.  
+_
 ---
 
 ## 4.6 Script and Configuration Artefacts in Memory
@@ -260,13 +262,27 @@ In this lab, unmanaged memory was allocated using `Marshal.AllocHGlobal`. Howeve
 **Interpretation:**
 Although the configuration was XOR-encoded and copied into unmanaged memory, the original `$config` string variable was never removed, overwritten, or zeroed. As a result the plaintext configuration remains present in managed memory, the script content remains resident in process memory during execution, and encoding created an additional transformed copy but did not eliminate the original artefact.
 
-    
-This demonstrates an important forensic principle, encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed.
 
-The visibility of the configuration is consistent with normal PowerShell execution behaviour rather than the stealthy in-memory staging you'd typically see in the wild.
-
+_Encoding data in memory does not remove original artefacts unless the plaintext is explicitly destroyed. The visibility of the configuration is consistent with normal PowerShell execution behaviour, rather than the stealthy in-memory staging you'd typically see in the wild.
+_
 ---
 
-# 5. Conclusion
+# 5. Conclusion & Analytical Observations
 
-This lab demonstrates how even a simple PowerShell script can generate rich volatile artefacts observable through memory forensics. Unlike disk-based simulations, this highlights the importance of volatile evidence in incident response. It reinforces that even without persistence mechanisms or file-based payloads, memory analysis alone can reconstruct execution behaviour and intent.
+This lab demonstrates how standard PowerShell execution produces recoverable volatile artefacts within process memory. Through memory acquisition and analysis, process hierarchy, command-line invocation, and runtime behaviour were reconstructed while the system remained active.
+
+Several expected findings provided important forensic learning points:
+
+- Encoding did not remove plaintext artefacts.
+- Although the configuration was XOR-encoded and copied into unmanaged memory, the original $config string was never overwritten or zeroed. As a result, the plaintext configuration remained visible in process memory.
+_Data transformation alone does not eliminate artefacts unless the original data is explicitly destroyed.
+_
+- TCP artefacts were timing-dependent.
+- No socket entries for 127.0.0.1:4444 were observed at acquisition time. Given that connections failed immediately and the script slept between attempts, the TCP objects likely existed only briefly.
+_Volatile network artefacts may not persist long enough to be captured.
+_
+- Unmanaged allocations were not inherently distinguishable.
+- Private PAGE_READWRITE regions were consistent with normal heap behaviour. Without direct content validation, structural VAD analysis alone does not indicate malicious activity.
+_Context and behavioural correlation are essential.
+_
+The findings illustrate how memory evidence must be interpreted carefully, with attention to timing, execution context, and implementation details.

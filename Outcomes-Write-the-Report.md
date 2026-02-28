@@ -1,3 +1,5 @@
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
 # Outcomes write the report. Decisions shape the craft.
 
 Some nights the incident isn’t in the SIEM, it’s in my head.

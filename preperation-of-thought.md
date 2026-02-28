@@ -1,3 +1,6 @@
+[<Home](https://svc-blue-bot.github.io/breadcrumbs/)
+
+
 # Preparation Of Thought
 
 People talk about exams like OSCP, BTL2, HTB CPTS, and other intermediate and beyond practical certs as “practical knowledge builders”. And yeah, they are. You learn tools, techniques, how things work, how to apply them. But that’s not really what changes you.

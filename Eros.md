@@ -1,4 +1,5 @@
 # Blue Team Labs Online - Eros
+An easy IR investigation focusing on the compromise of a boutique dating platform.
 
 ## Scenario
 `

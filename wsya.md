@@ -7,7 +7,7 @@ One thing I keep circling back to when investigating an incident is how much of 
 
 I think investigations have to be approached with multiple hypotheses running at once. Not because that sounds "disciplined", but because you are almost never working with complete information. 
 
-Where this starts to go wrong is when a hypothesis begins to feel right. Have you every had that sense that things are finally clicking into place. That’s usually the moment where it can get dangerous, because once something starts feeling like a coherent story, it gets a lot harder to stay honest with it. We're human right, naturally you'll fill gaps with assumptions and smooth over inconsistencies. 
+Where this starts to go wrong is when a hypothesis begins to feel right. Have you ever sensed that things are finally clicking into place. That’s usually the moment where it can get dangerous, because once something starts feeling like a coherent story, it gets a lot harder to stay honest with it. We're human right, naturally you'll fill gaps with assumptions and smooth over inconsistencies. 
 
 That’s how investigations get pulled off course and how possibilities get dismissed too early. Not always because there wasn’t enough data, but because certainty showed up too early, and it felt good enough to trust.
 

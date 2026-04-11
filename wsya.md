@@ -3,7 +3,7 @@
 
 # Who's steering your analysis ?
 
-One thing I keep circling back to in when investigating an incident is how much of the work is really about managing yourself. Not just your process, not just the evidence, but your own bias, your own reactions, and how quietly those things can start steering the analysis if you’re not paying attention.
+One thing I keep circling back to when investigating an incident is how much of the work is really about managing yourself. Not just your process, not just the evidence, but your own bias, your own reactions, and how quietly those things can start steering the analysis if you’re not paying attention.
 
 I think investigations have to be approached with multiple hypotheses running at once. Not because that sounds "disciplined", but because you are almost never working with complete information. 
 

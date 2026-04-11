@@ -11,7 +11,7 @@ Where this starts to go wrong is when a hypothesis begins to feel right. Have yo
 
 That’s how investigations get pulled off course and how possibilities get dismissed too early. Not always because there wasn’t enough data, but because certainty showed up too early, and it felt good enough to trust.
 
-That gets worse when you accept that mistakes are not some edge case here. In any kind of analytical work, error is part of it. In incident response, or really any environment where information is incomplete and the situation is changing while you’re trying to understand it, those errors compound fast and early. If you’re not actively checking your own limitations, they don’t stay in the background. They, as well as your early unchallenged assumptions, and blindly trusted emotions start steering the entire direction of the work.
+That gets worse when you accept that mistakes are not some edge case here. In any kind of analytical work, error is part of it. In incident response, or really any environment where information is incomplete and the situation is changing while you’re trying to understand it, those errors compound fast and early. If you’re not actively checking your own limitations, they don’t stay in the background. They, as well as your early unchallenged assumptions, and blindly trusted emotions, start steering the entire direction of the work.
 
 ---
 
